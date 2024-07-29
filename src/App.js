@@ -49,10 +49,33 @@ const GridGame = () => {
     }]);
   };
 
+  // const handlePlayerAction = (action) => {
+  //   setState(prev => {
+  //     let newPlayer = { ...prev.player };
+  //     let actionDetails = { action };
+
+  //     if (action !== 'wait') {
+  //       const dir = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[action];
+  //       const newX = prev.player.x + dir[0];
+  //       const newY = prev.player.y + dir[1];
+  //       if (
+  //         newX >= 0 && newX < 8 && newY >= 0 && newY < 8 &&
+  //         !prev.blocks.some(block => block.x === newX && block.y === newY)
+  //       ) {
+  //         newPlayer.x = newX;
+  //         newPlayer.y = newY;
+  //         actionDetails.newPosition = { x: newX, y: newY };
+  //       } else {
+  //         actionDetails.result = 'Invalid Move';
+  //         logAction('Attempted Move', actionDetails);
+  //         return prev; // If move is invalid, don't update state
+  //       }
+  //     }
   const handlePlayerAction = (action) => {
     setState(prev => {
       let newPlayer = { ...prev.player };
       let actionDetails = { action };
+      let playerMoved = false;
 
       if (action !== 'wait') {
         const dir = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[action];
@@ -65,6 +88,7 @@ const GridGame = () => {
           newPlayer.x = newX;
           newPlayer.y = newY;
           actionDetails.newPosition = { x: newX, y: newY };
+          playerMoved = true;
         } else {
           actionDetails.result = 'Invalid Move';
           logAction('Attempted Move', actionDetails);
@@ -98,8 +122,11 @@ const GridGame = () => {
         actionDetails.openedDoor = door.color;
       }
 
-      const newNpc = moveNPC(prev);
-      actionDetails.npcMove = { from: { x: prev.npc.x, y: prev.npc.y }, to: { x: newNpc.x, y: newNpc.y } };
+      let newNpc = prev.npc;
+      if (!playerMoved) {
+        newNpc = moveNPC(prev);
+        actionDetails.npcMove = { from: { x: prev.npc.x, y: prev.npc.y }, to: { x: newNpc.x, y: newNpc.y } };
+      }
 
       logAction('Player Action', actionDetails);
 
@@ -107,7 +134,6 @@ const GridGame = () => {
         ...prev, 
         player: newPlayer,
         npc: newNpc,
-        keys: newKeys, 
         mysterySpots: newMysterySpots,
         inventory: newInventory, 
         openedDoors: newOpenedDoors 
