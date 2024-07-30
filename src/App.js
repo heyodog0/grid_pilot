@@ -118,50 +118,6 @@ const GridGame = () => {
     });
   };
 
-  // const handlePlayerAction = (action) => {
-  //   setState(prev => {
-  //     let newState = { ...prev };
-  //     let actionDetails = { action };
-
-  //     if (action === 'observe') {
-  //       moveNPC();
-  //       logAction('Player Observed, NPC Moved', actionDetails);
-  //       return newState;
-  //     }
-
-  //     const { player, keys, mysterySpots, doors, blocks, inventory, openedDoors } = prev;
-  //     let newPlayer = { ...player };
-  //     let newInventory = [...inventory];
-  //     let newOpenedDoors = [...openedDoors];
-
-  //     const dir = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[action];
-  //     const newX = player.x + dir[0];
-  //     const newY = player.y + dir[1];
-
-  //     if (isValidMove(newX, newY, blocks)) {
-  //       const interactiveObject = findInteractiveObject(newX, newY, keys, mysterySpots, doors);
-
-  //       if (interactiveObject) {
-  //         handleInteraction(interactiveObject, newInventory, newOpenedDoors, actionDetails);
-  //       } else {
-  //         newPlayer = { x: newX, y: newY };
-  //       }
-  //     }
-
-  //     const newMysterySpots = updateMysterySpots(mysterySpots, newPlayer);
-
-  //     logAction('Player Action', actionDetails);
-
-  //     return { 
-  //       ...newState, 
-  //       player: newPlayer,
-  //       mysterySpots: newMysterySpots,
-  //       inventory: newInventory, 
-  //       openedDoors: newOpenedDoors 
-  //     };
-  //   });
-  // };
-
   const isValidMove = (x, y, blocks) => 
     x >= 0 && x < 9 && y >= 0 && y < 10 && !blocks.some(block => block.x === x && block.y === y);
 
@@ -193,24 +149,6 @@ const GridGame = () => {
       }
     }
   };
-  // const handleInteraction = (object, inventory, openedDoors, actionDetails) => {
-  //   if (object.color && !inventory.includes(object.color)) {
-  //     inventory.push(object.color);
-  //     actionDetails.collectedKey = object.color;
-  //     setMessage(`You collected a ${object.color} key!`);
-  //   }
-  //   if (object.content && !object.revealed) {
-  //     inventory.push(object.content);
-  //     actionDetails.revealedMystery = object.content;
-  //     setMessage(`You found a ${object.content} in the mystery spot!`);
-  //   }
-  //   if (object.requiredKeys && object.requiredKeys.every(color => inventory.includes(color)) && !openedDoors.includes(object.color)) {
-  //     openedDoors.push(object.color);
-  //     actionDetails.openedDoor = object.color;
-  //     setMessage(`You opened the ${object.color} door!`);
-  //   }
-  //   // actionDetails.interactedWith = object.type || object.color;
-  // };
 
   const updateMysterySpots = (spots, player) => 
     spots.map(spot => spot.x === player.x && spot.y === player.y ? { ...spot, revealed: true } : spot);
@@ -333,8 +271,8 @@ const GridGame = () => {
             <div className="ml-4">
               <h3 className="text-lg font-bold mb-2">Inventory</h3>
               <div className="grid grid-cols-1 gap-2 w-12">
-                {['red', 'green', 'blue', 'yellow', 'purple'].map(color => (
-                  <div key={color} className="w-12 h-12 border flex justify-center items-center bg-gray-200">
+                {['red', 'green', 'blue', 'yellow', 'purple', 'orange'].map(color => (
+                  <div key={color} className="w-9 h-9 border flex justify-center items-center bg-gray-200">
                     {state.inventory.includes(color) && <Key size={24} color={color} />}
                   </div>
                 ))}
