@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Sword, FlaskRound, Pill, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Eye, Download } from 'lucide-react';
+import { Sword, FlaskRound, Pill, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Eye, Download, Grid } from 'lucide-react';
+import SelectComponent from 'react-select';
 import mapData from './mapData';
 
 const GridGame = () => {
@@ -9,7 +10,7 @@ const GridGame = () => {
   const [actionLog, setActionLog] = useState([]);
   const [goalAchieved, setGoalAchieved] = useState(false);
   const [stepsRemaining, setStepsRemaining] = useState(100);
-  const [maxSteps] = useState(50);
+  const [maxSteps] = useState(100);
   const levels = Object.keys(mapData);
 
   useEffect(() => {
@@ -145,9 +146,9 @@ const GridGame = () => {
     });
   };
 
-  const handleLevelChange = (level) => {
-    setCurrentLevel(level);
-    setActionLog(prev => [...prev, { action: 'Level Changed', level, timestamp: new Date().toISOString() }]);
+  const handleLevelChange = (selectedOption) => {
+    setCurrentLevel(selectedOption.value);
+    setActionLog(prev => [...prev, { action: 'Level Changed', level: selectedOption.value, timestamp: new Date().toISOString() }]);
   };
 
   const exportActionLog = () => {
@@ -167,29 +168,30 @@ const GridGame = () => {
   const { player, npc, items, doors, sorcerers, blocks, inventory } = state;
   const goalTexts = ['Slay the dragon', 'Slay the monster', 'Save the princess'];
 
+  const levelOptions = levels.map(level => ({ value: level, label: level }));
   return (
-    <div className="flex flex-col items-center justify-center h-screen space-y-8">
-      <div className="flex flex-wrap justify-center space-x-2 mb-4">
-        {levels.map((level) => (
-          <button 
-            key={level}
-            onClick={() => handleLevelChange(level)} 
-            className={`p-2 ${currentLevel === level ? 'bg-blue-700' : 'bg-blue-500'} text-white rounded mb-2`}
-          >
-            {level}
-          </button>
-        ))}
-        <button onClick={exportActionLog} className="p-2 bg-green-500 text-white rounded flex items-center mb-2">
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex justify-center space-x-2 mb-4">
+        <SelectComponent
+          value={{ value: currentLevel, label: currentLevel }}
+          onChange={handleLevelChange}
+          options={levelOptions}
+          className="w-[180px]"
+        />
+        <button onClick={exportActionLog} className="p-2 bg-green-500 text-white rounded flex items-center">
           <Download size={16} className="mr-1" /> Export Log
         </button>
       </div>
   
-      <div className="text-xl font-bold mb-4">Goal: {goalTexts[state.goal]}</div>
-      <div className="text-lg font-semibold mb-4">
-        Steps Remaining: {stepsRemaining}
-      </div>
-      <div className="flex space-x-8">
-        <div className="flex flex-col items-center">
+      <div className="flex justify-center items-start space-x-8 w-full max-w-2xl">
+        <div className="flex flex-col items-start w-1/4">
+          <div className="text-xl font-bold mb-4">Goal: {goalTexts[state.goal]}</div>
+          <div className="text-lg font-semibold mb-4">
+            Steps Remaining: {stepsRemaining/2}
+          </div>
+        </div>
+  
+        <div className="flex flex-col items-center w-2/4">
           <div className="relative w-72 h-80 bg-gray-300 mb-4">
             {[...Array(90)].map((_, i) => {
               const x = i % 9, y = Math.floor(i / 9);
@@ -248,8 +250,8 @@ const GridGame = () => {
             </div>
           </div>
         </div>
-        
-        <div>
+  
+        <div className="w-1/4">
           <h3 className="text-lg font-semibold mb-2">Inventory</h3>
           <div className="flex flex-col space-y-2">
             {['sword', 'potion', 'antidote'].map(item => (
@@ -266,7 +268,7 @@ const GridGame = () => {
       </div>
       
       {message && (
-        <div className="mt-4 p-2 border border-gray-300 rounded w-full h-16 flex items-center justify-center">
+        <div className="mt-4 p-2 border border-gray-300 rounded w-full max-w-2xl h-16 flex items-center justify-center">
           <p>{message}</p>
         </div>
       )}
@@ -274,4 +276,4 @@ const GridGame = () => {
   );
 };
 
-export default GridGame;
+export default GridGame
