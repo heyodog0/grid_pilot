@@ -1,5 +1,3 @@
-// File: src/components/GridGame/Inventory.js
-
 import React from 'react';
 import { Sword, FlaskRound, Pill } from 'lucide-react';
 
@@ -11,9 +9,9 @@ const Inventory = ({ inventory }) => {
   };
 
   return (
-    <div className="w-1/5">
+    <div className="mt-1">
       <h3 className="text-lg font-semibold mb-2">Inventory</h3>
-      <div className="flex flex-col space-y-2">
+      <div className="flex space-x-2">
         {['sword', 'potion', 'antidote'].map(item => {
           const Icon = itemIcons[item];
           return (
