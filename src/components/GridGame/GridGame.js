@@ -9,32 +9,38 @@ import ActionButtons from './ActionButtons';
 import Inventory from './Inventory';
 import { handlePlayerAction, initiateGoalCompletion } from './gameLogic';
 
+// Main component for the Grid Game
 const GridGame = () => {
-  const [state, setState] = useState(null);
-  const [currentLevel, setCurrentLevel] = useState('level1');
-  const [message, setMessage] = useState(null);
-  const [actionLog, setActionLog] = useState([]);
-  const [goalAchieved, setGoalAchieved] = useState(false);
-  const [stepsRemaining, setStepsRemaining] = useState(50);
-  const levels = Object.keys(mapData);
+  // State variables
+  const [state, setState] = useState(null);  // Holds the current game state
+  const [currentLevel, setCurrentLevel] = useState('level1');  // Current level being played
+  const [message, setMessage] = useState(null);  // Message to display to the player
+  const [actionLog, setActionLog] = useState([]);  // Log of player actions
+  const [goalAchieved, setGoalAchieved] = useState(false);  // Whether the level goal has been achieved
+  const [stepsRemaining, setStepsRemaining] = useState(50);  // Number of steps player has left
+  const levels = Object.keys(mapData);  // Available levels
 
+  // Effect to initialize or reset the game state when the level changes
   useEffect(() => {
     setState(mapData[currentLevel]);
     setGoalAchieved(false);
     setMessage(null);
-    setStepsRemaining(50);
+    setStepsRemaining(100);
     setActionLog(prev => [...prev, { action: 'Level Loaded', level: currentLevel, timestamp: new Date().toISOString() }]);
   }, [currentLevel]);
 
+  // Wrapper function for handling player actions
   const handlePlayerActionWrapper = useCallback((action) => {
     handlePlayerAction(action, state, setState, setMessage, setActionLog, setStepsRemaining, setGoalAchieved);
   }, [state]);
 
+  // Handler for changing levels
   const handleLevelChange = (selectedOption) => {
     setCurrentLevel(selectedOption.value);
     setActionLog(prev => [...prev, { action: 'Level Changed', level: selectedOption.value, timestamp: new Date().toISOString() }]);
   };
 
+  // Function to export the action log as a JSON file
   const exportActionLog = () => {
     const jsonString = JSON.stringify(actionLog, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
@@ -47,6 +53,7 @@ const GridGame = () => {
     document.body.removeChild(link);
   };
 
+  // Effect to handle keyboard inputs for game actions
   useEffect(() => {
     const handleKeyDown = (e) => {
       const actions = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', ' ': 'observe' };
@@ -59,13 +66,17 @@ const GridGame = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handlePlayerActionWrapper, goalAchieved, stepsRemaining]);
 
+  // Loading state
   if (!state) return <div className="flex justify-center items-center h-screen">Loading...</div>;
 
+  // Game goals and level options for the dropdown
   const goalTexts = ['Slay the dragon', 'Slay the monster', 'Save the princess'];
   const levelOptions = levels.map(level => ({ value: level, label: level }));
 
+  // Render the game interface
   return (
     <div className="flex flex-col items-center justify-center h-screen">
+      {/* Level selection and action log export */}
       <div className="flex justify-center space-x-2 mb-4">
         <SelectComponent
           value={{ value: currentLevel, label: currentLevel }}
@@ -78,25 +89,32 @@ const GridGame = () => {
         </button>
       </div>
 
-      <div className="flex justify-center items-start space-x-8 w-full max-w-2xl">
-        <div className="flex flex-col items-start w-1/5">
+      {/* Main game area */}
+      <div className="flex justify-center items-start space-x-8 w-full max-w-3xl">
+        {/* Left column: Goal and Steps */}
+        <div className="flex flex-col items-start w-1/4">
           <div className="text-xl font-bold mb-4">Goal: {goalTexts[state.goal]}</div>
           <div className="text-lg font-semibold mb-4">
             Steps Remaining: {stepsRemaining}
           </div>
         </div>
 
-        <div className="flex flex-col items-center w-3/5">
+        {/* Center column: Game Grid and Inventory */}
+        <div className="flex flex-col items-center w-1/2">
           <GameGrid state={state} />
+          <Inventory inventory={state.inventory} />
+        </div>
+
+        {/* Right column: Action Buttons */}
+        <div className="w-1/4">
           <ActionButtons 
             handlePlayerAction={handlePlayerActionWrapper} 
             goalAchieved={goalAchieved} 
           />
         </div>
-
-        <Inventory inventory={state.inventory} />
       </div>
       
+      {/* Message display area */}
       {message && (
         <div className="mt-4 p-2 border border-gray-300 rounded w-full max-w-2xl h-16 flex items-center justify-center">
           <p>{message}</p>
