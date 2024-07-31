@@ -1,180 +1,151 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Key, 
-  Lock, 
-  Unlock, 
-  HelpCircle, 
-  Download, 
-  ArrowUp, 
-  ArrowDown, 
-  ArrowLeft, 
-  ArrowRight, 
-  Eye,
-} from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Sword, FlaskRound, Pill, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Eye, Download } from 'lucide-react';
 import mapData from './mapData';
 
 const GridGame = () => {
   const [state, setState] = useState(null);
   const [currentLevel, setCurrentLevel] = useState('level1');
-  const [actionLog, setActionLog] = useState([]);
   const [message, setMessage] = useState(null);
+  const [actionLog, setActionLog] = useState([]);
+  const [goalAchieved, setGoalAchieved] = useState(false);
+  const [stepsRemaining, setStepsRemaining] = useState(100);
+  const [maxSteps] = useState(100);
   const levels = Object.keys(mapData);
-  
+
   useEffect(() => {
-    const loadMapFromExternal = async () => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(mapData[currentLevel]);
-        }, 100);
-      });
-    };
+    setState(mapData[currentLevel]);
+    setGoalAchieved(false);
+    setMessage(null);
+    setStepsRemaining(maxSteps);
+    setActionLog(prev => [...prev, { action: 'Level Loaded', level: currentLevel, timestamp: new Date().toISOString() }]);
+  }, [currentLevel, maxSteps]);
 
-    loadMapFromExternal().then(loadedMapData => {
-      setState(loadedMapData);
-      setActionLog([{ action: 'Level Loaded', level: currentLevel, timestamp: new Date().toISOString() }]);
-    });
-  }, [currentLevel]);
-
-  const moveNPC = (prevState) => {
-    const { npc, blocks } = prevState;
-    let newNPC = { ...npc };
-    let moved = false;
-    let attemptCount = 0;
-
-    while (!moved && attemptCount < npc.movements.length) {
-      const currentAction = npc.movements[newNPC.currentMovementIndex];
-      const dir = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[currentAction];
-      const newX = newNPC.x + dir[0];
-      const newY = newNPC.y + dir[1];
-
-      if (isValidMove(newX, newY, blocks)) {
-        newNPC.x = newX;
-        newNPC.y = newY;
-        moved = true;
-      }
-
-      newNPC.currentMovementIndex = (newNPC.currentMovementIndex + 1) % npc.movements.length;
-      attemptCount++;
-    }
-
-    return { 
-      ...prevState, 
-      npc: newNPC
-    };
-  };
+  const handlePlayerAction = useCallback((action) => {
+    if (goalAchieved || stepsRemaining <= 0) return;
   
-  const logAction = (action, details = {}) => {
-    setActionLog(prevLog => [...prevLog, {
-      action,
-      ...details,
-      timestamp: new Date().toISOString()
-    }]);
-  };
-
-  const handlePlayerAction = (action) => {
     setState(prev => {
-      let newState = { ...prev };
-      let actionDetails = { action };
-
+      if (!prev) return null;
+      let { player, npc, inventory, openedDoors, items, doors, sorcerers, blocks } = prev;
+      
       if (action === 'observe') {
-        newState = moveNPC(newState);
-        logAction('Player Observed, NPC Moved', actionDetails);
-        // setMessage("You observe your surroundings. The NPC moves.");
-        return newState;
-      }
-
-      const { player, keys, mysterySpots, doors, blocks, inventory, openedDoors } = newState;
-      let newPlayer = { ...player };
-      let newInventory = [...inventory];
-      let newOpenedDoors = [...openedDoors];
-
-      const dir = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[action];
-      const newX = player.x + dir[0];
-      const newY = player.y + dir[1];
-
-      if (isValidMove(newX, newY, blocks)) {
-        const interactiveObject = findInteractiveObject(newX, newY, keys, mysterySpots, doors);
-
-        if (interactiveObject) {
-          handleInteraction(interactiveObject, newInventory, newOpenedDoors, actionDetails);
-        } else {
-          newPlayer = { x: newX, y: newY };
-        }
+        npc = moveNPC(npc, blocks, items, doors, sorcerers);
       } else {
-        // setMessage("You can't move there.");
-      }
-
-      const newMysterySpots = updateMysterySpots(mysterySpots, newPlayer);
-
-      logAction('Player Action', actionDetails);
-
-      return {
-        ...newState,
-        player: newPlayer,
-        mysterySpots: newMysterySpots,
-        inventory: newInventory,
-        openedDoors: newOpenedDoors
-      };
-    });
-  };
-
-  const isValidMove = (x, y, blocks) => 
-    x >= 0 && x < 9 && y >= 0 && y < 10 && !blocks.some(block => block.x === x && block.y === y);
-
-  const findInteractiveObject = (x, y, ...objectArrays) => 
-    objectArrays.flat().find(obj => obj && obj.x === x && obj.y === y);
-
+        const [dx, dy] = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[action];
+        const newX = player.x + dx, newY = player.y + dy;
   
-  const handleInteraction = (object, inventory, openedDoors, actionDetails) => {
-    if (object.color && !object.requiredKeys && !inventory.includes(object.color)) {
-      // This is a key, not a door
-      inventory.push(object.color);
-      actionDetails.collectedKey = object.color;
-      setMessage(`You collected a ${object.color} key!`);
-    } else if (object.content && !object.revealed) {
-      // This is a mystery spot
-      inventory.push(object.content);
-      actionDetails.revealedMystery = object.content;
-      setMessage(`You found a ${object.content} in the mystery spot!`);
-    } else if (object.requiredKeys) {
-      // This is a door
-      if (object.requiredKeys.every(color => inventory.includes(color)) && !openedDoors.includes(object.color)) {
-        openedDoors.push(object.color);
-        actionDetails.openedDoor = object.color;
-        setMessage(`You opened the ${object.color} door!`);
-      } else if (!object.requiredKeys.every(color => inventory.includes(color))) {
-        setMessage(`You need ${object.requiredKeys.join(' and ')} key(s) to open this door.`);
-      } else {
-        setMessage(`The ${object.color} door is already open.`);
+        if (isValidMove(newX, newY, prev.blocks)) {
+          const object = [...prev.items, ...prev.sorcerers, ...prev.doors].find(o => o.x === newX && o.y === newY);
+          if (object) {
+            handleInteraction(object, inventory, openedDoors);
+          } else {
+            player = { ...player, x: newX, y: newY };
+            setStepsRemaining(steps => steps - 1);
+          }
+        }
       }
-    }
-  };
-
-  const updateMysterySpots = (spots, player) => 
-    spots.map(spot => spot.x === player.x && spot.y === player.y ? { ...spot, revealed: true } : spot);
+      setActionLog(prevLog => [...prevLog, { action, timestamp: new Date().toISOString() }]);
+      return { ...prev, player, npc, inventory, openedDoors };
+    });
+  }, [goalAchieved, stepsRemaining]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      const actionMap = {
-        'ArrowUp': 'up',
-        'ArrowDown': 'down',
-        'ArrowLeft': 'left',
-        'ArrowRight': 'right',
-        ' ': 'observe'
-      };
-      const action = actionMap[e.key];
-      if (action) {
-        handlePlayerAction(action);
+      const actions = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', ' ': 'observe' };
+      if (actions[e.key] && !goalAchieved && stepsRemaining > 0) {
+        e.preventDefault();
+        handlePlayerAction(actions[e.key]);
       }
     };
-
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [handlePlayerAction, goalAchieved, stepsRemaining]);
+
+  const isValidMove = (x, y, blocks) => 
+    x >= 0 && x < 9 && y >= 0 && y < 10 && !blocks.some(b => b.x === x && b.y === y);
+
+  const moveNPC = (npc, blocks, items, doors, sorcerers) => {
+    const { x, y, movements, currentMovementIndex } = npc;
+    const currentMovement = movements[currentMovementIndex];
+    
+    if (currentMovement === 'wait') {
+      return { ...npc, currentMovementIndex: (currentMovementIndex + 1) % movements.length };
+    }
+    
+    const [dx, dy] = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[currentMovement];
+    const newX = x + dx, newY = y + dy;
+
+    const isObjectAt = (x, y) => {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].x === x && items[i].y === y) return true;
+      }
+      for (let i = 0; i < doors.length; i++) {
+        if (doors[i].x === x && doors[i].y === y) return true;
+      }
+      for (let i = 0; i < sorcerers.length; i++) {
+        if (sorcerers[i].x === x && sorcerers[i].y === y) return true;
+      }
+      return false;
+    };
+
+    if (isValidMove(newX, newY, blocks) && !isObjectAt(newX, newY)) {
+      return { ...npc, x: newX, y: newY, currentMovementIndex: (currentMovementIndex + 1) % movements.length };
+    } else {
+      return { ...npc, currentMovementIndex: (currentMovementIndex + 1) % movements.length };
+    }
+  };
+
+  const handleInteraction = (object, inventory, openedDoors) => {
+    if (object.type && !object.requiredItems && !inventory.includes(object.type)) {
+      inventory.push(object.type);
+      setMessage(`You collected a ${object.type}!`);
+    } else if (object.content && !object.revealed) {
+      inventory.push(object.content);
+      setMessage(`You found a ${object.content} from the sorcerer!`);
+    } else if (object.requiredItems) {
+      if (object.requiredItems.every(item => inventory.includes(item))) {
+        const action = object.type === 'princess' ? 'save' : 'defeat';
+        initiateGoalCompletion(object.type, action);
+      } else {
+        setMessage(`You need ${object.requiredItems.join(' and ')} to ${object.type === 'princess' ? 'save' : 'defeat'} the ${object.type}.`);
+      }
+    }
+  };
+
+  const initiateGoalCompletion = (objectType, action) => {
+    setState(currentState => {
+      if (!currentState) return null;
+      
+      const goalMap = { 0: 'dragon', 1: 'monster', 2: 'princess' };
+      if (goalMap[currentState.goal] === objectType) {
+        setGoalAchieved(true);
+        setMessage(`You ${action}d the ${objectType}!`);
+        setActionLog(prev => [...prev, { action: 'Goal Initiated', goal: goalMap[currentState.goal], timestamp: new Date().toISOString() }]);
+        
+        setTimeout(() => {
+          setMessage(`Congratulations! You've completed the goal: ${action.charAt(0).toUpperCase() + action.slice(1)} the ${objectType}!`);
+          setActionLog(prev => [...prev, { action: 'Goal Completed', goal: goalMap[currentState.goal], timestamp: new Date().toISOString() }]);
+          
+          setTimeout(() => {
+            const nextLevelIndex = levels.indexOf(currentLevel) + 1;
+            if (nextLevelIndex < levels.length) {
+              setCurrentLevel(levels[nextLevelIndex]);
+            } else {
+              setMessage("Congratulations! You've completed all levels!");
+              setActionLog(prev => [...prev, { action: 'All Levels Completed', timestamp: new Date().toISOString() }]);
+            }
+          }, 3000);
+        }, 2000);
+      }
+      return {
+        ...currentState,
+        openedDoors: [...currentState.openedDoors, objectType]
+      };
+    });
+  };
 
   const handleLevelChange = (level) => {
     setCurrentLevel(level);
-    logAction('Level Change', { newLevel: level });
+    setActionLog(prev => [...prev, { action: 'Level Changed', level, timestamp: new Date().toISOString() }]);
   };
 
   const exportActionLog = () => {
@@ -189,18 +160,11 @@ const GridGame = () => {
     document.body.removeChild(link);
   };
 
-  useEffect(() => {
-    if (message) {
-      const timer = setTimeout(() => {
-        setMessage(null);
-      }, 100000);
-      return () => clearTimeout(timer);
-    }
-  }, [message]);
+  if (!state) return <div className="flex justify-center items-center h-screen">Loading...</div>;
 
-  if (!state) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
-  }
+  const { player, npc, items, doors, sorcerers, blocks, inventory } = state;
+  const goalTexts = ['Slay the dragon', 'Slay the monster', 'Save the princess'];
+
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-8">
       <div className="flex flex-wrap justify-center space-x-2 mb-4">
@@ -217,75 +181,93 @@ const GridGame = () => {
           <Download size={16} className="mr-1" /> Export Log
         </button>
       </div>
-      <div className="flex flex-col items-center">
-        <div className="flex">
-          <div className="relative w-72 h-80 bg-gray-300">
+  
+      <div className="text-xl font-bold mb-4">Goal: {goalTexts[state.goal]}</div>
+      <div className="text-lg font-semibold mb-4">
+        Steps Remaining: {stepsRemaining/2}
+      </div>
+      <div className="flex space-x-8">
+        <div className="flex flex-col items-center">
+          <div className="relative w-72 h-80 bg-gray-300 mb-4">
             {[...Array(90)].map((_, i) => {
               const x = i % 9, y = Math.floor(i / 9);
-              const { player, npc, keys, doors, openedDoors, mysterySpots, blocks} = state;
-              const key = keys.find(k => k.x === x && k.y === y);
-              const door = doors.find(d => d.x === x && d.y === y);
-              const mysterySpot = mysterySpots.find(s => s.x === x && s.y === y);
-              const block = blocks.find(b => b.x === x && b.y === y);
-              const isNPC = npc.x === x && npc.y === y;
-              
+              const cellContent = [
+                { condition: player.x === x && player.y === y, content: <div className="w-6 h-6 bg-yellow-500 rounded-full" /> },
+                { condition: npc.x === x && npc.y === y, content: <div className="w-6 h-6 bg-red-500 rounded-full" /> },
+                { condition: blocks.some(b => b.x === x && b.y === y), content: <div className="w-8 h-8 bg-gray-700" /> },
+                { condition: items.some(item => item.x === x && item.y === y && item.type === 'sword'), content: <img src="./icons/a.png" alt="Sword Shop" className="w-6 h-6" /> },
+                { condition: doors.some(door => door.x === x && door.y === y), content: 
+                  (() => {
+                    const door = doors.find(d => d.x === x && d.y === y);
+                    if (!door) return null;
+                    const iconMap = { dragon: 'e', monster: 'c', princess: 'b' };
+                    return <img src={`./icons/${iconMap[door.type] || 'b'}.png`} alt="Door" className="w-6 h-6" />;
+                  })()
+                },
+                { condition: sorcerers.some(s => s.x === x && s.y === y), content:
+                  <img src={`./icons/${['d', 'f', 'g'][sorcerers.findIndex(s => s.x === x && s.y === y) % 3]}.png`} alt="Sorcerer" className="w-6 h-6" /> }
+              ].find(item => item.condition)?.content;
+  
               return (
-                <div key={i} className="absolute w-8 h-8 flex justify-center items-center"
-                     style={{ left: `${x * 32}px`, top: `${y * 32}px` }}>
-                  {player.x === x && player.y === y && (
-                    <div className="w-6 h-6 bg-yellow-500 rounded-full" />
-                  )}
-                  {isNPC && (
-                    <div className="w-6 h-6 bg-red-500 rounded-full" />
-                  )}
-                  {block && (
-                    <div className="w-8 h-8 bg-gray-700" />
-                  )}
-                  {key && <Key size={20} color={key.color} />}
-                  {door && (openedDoors.includes(door.color) ? 
-                    <Unlock size={20} color={door.color} fill={door.color} /> : 
-                    <Lock size={20} color={door.color} />
-                  )}
-                  {mysterySpot && <HelpCircle size={20} />}
-
+                <div key={i} className="absolute w-8 h-8 flex justify-center items-center" style={{ left: `${x * 32}px`, top: `${y * 32}px` }}>
+                  {cellContent}
                 </div>
               );
             })}
           </div>
-          <div className="ml-4 flex">
-            <div className="grid grid-cols-1 gap-2">
-              {['up', 'left', 'observe', 'right', 'down'].map((action) => (
-                <button
-                  key={action}
-                  onClick={() => handlePlayerAction(action)}
-                  className="w-12 h-12 bg-blue-500 text-white rounded flex items-center justify-center"
-                >
-                  {action === 'up' && <ArrowUp size={24} />}
-                  {action === 'down' && <ArrowDown size={24} />}
-                  {action === 'left' && <ArrowLeft size={24} />}
-                  {action === 'right' && <ArrowRight size={24} />}
-                  {action === 'observe' && <Eye size={24} />}
-                </button>
-              ))}
-            </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-bold mb-2">Inventory</h3>
-              <div className="grid grid-cols-1 gap-2 w-12">
-                {['red', 'green', 'blue', 'yellow', 'purple', 'orange'].map(color => (
-                  <div key={color} className="w-9 h-9 border flex justify-center items-center bg-gray-200">
-                    {state.inventory.includes(color) && <Key size={24} color={color} />}
-                  </div>
-                ))}
-              </div>
+  
+          <div>
+            <h3 className="text-lg font-semibold mb-2 text-center">Actions</h3>
+            <div className="grid grid-cols-3 gap-2">
+              <div></div>
+              <button onClick={() => handlePlayerAction('up')} className={`w-14 h-14 ${goalAchieved ? 'bg-gray-400' : 'bg-blue-500'} text-white rounded flex flex-col items-center justify-center`} disabled={goalAchieved}>
+                <ArrowUp size={20} />
+                <span className="text-xs">Up</span>
+              </button>
+              <div></div>
+              <button onClick={() => handlePlayerAction('left')} className={`w-14 h-14 ${goalAchieved ? 'bg-gray-400' : 'bg-blue-500'} text-white rounded flex flex-col items-center justify-center`} disabled={goalAchieved}>
+                <ArrowLeft size={20} />
+                <span className="text-xs">Left</span>
+              </button>
+              <button onClick={() => handlePlayerAction('observe')} className={`w-14 h-14 ${goalAchieved ? 'bg-gray-400' : 'bg-blue-500'} text-white rounded flex flex-col items-center justify-center`} disabled={goalAchieved}>
+                <Eye size={30} />
+                <span className="text-xs">Observe</span>
+              </button>
+              <button onClick={() => handlePlayerAction('right')} className={`w-14 h-14 ${goalAchieved ? 'bg-gray-400' : 'bg-blue-500'} text-white rounded flex flex-col items-center justify-center`} disabled={goalAchieved}>
+                <ArrowRight size={20} />
+                <span className="text-xs">Right</span>
+              </button>
+              <div></div>
+              <button onClick={() => handlePlayerAction('down')} className={`w-14 h-14 ${goalAchieved ? 'bg-gray-400' : 'bg-blue-500'} text-white rounded flex flex-col items-center justify-center`} disabled={goalAchieved}>
+                <ArrowDown size={20} />
+                <span className="text-xs">Down</span>
+              </button>
+              <div></div>
             </div>
           </div>
         </div>
-        {message && (
-          <div className="mt-4 p-2 border border-gray-300 rounded w-full h-16 flex items-center justify-center">
-          <p>{message || "Game messages will appear here."}</p>
+        
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Inventory</h3>
+          <div className="flex flex-col space-y-2">
+            {['sword', 'potion', 'antidote'].map(item => (
+              <div key={item} className="w-16 h-16 border flex justify-center items-center bg-gray-200">
+                {inventory.includes(item) && (
+                  item === 'sword' ? <Sword size={24} /> :
+                  item === 'potion' ? <FlaskRound size={24} /> :
+                  <Pill size={24} />
+                )}
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
+      
+      {message && (
+        <div className="mt-4 p-2 border border-gray-300 rounded w-full h-16 flex items-center justify-center">
+          <p>{message}</p>
+        </div>
+      )}
     </div>
   );
 };
