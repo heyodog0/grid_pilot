@@ -1,6 +1,6 @@
 const mapData = {
   level1: {
-    goal: 2,
+    goal: 1,
     player: { x: 6, y: 3 },
     npc: { x: 4, y: 5, movements: ['wait', 'wait', 'wait', 'down'], currentMovementIndex: 0 },
     items: [
@@ -29,7 +29,7 @@ const mapData = {
     openedDoors: []
   },
   level2: {
-    goal: 2,
+    goal: 1,
     player: { x: 4, y: 5 },
     npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -58,7 +58,7 @@ const mapData = {
     openedDoors: []
   },
   level3: {
-    goal: 2,
+    goal: 1,
     player: { x: 6, y: 3 },
     npc: { x: 4, y: 5, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -88,7 +88,7 @@ const mapData = {
     openedDoors: []
   },
   level4: {
-    goal: 2,
+    goal: 1,
     player: { x: 4, y: 5 },
     npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -118,7 +118,7 @@ const mapData = {
     openedDoors: []
   },
   level5: {
-    goal: 2,
+    goal: 1,
     player: { x: 4, y: 7 },
     npc: { x: 2, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -146,7 +146,7 @@ const mapData = {
     openedDoors: []
   },
   level6: {
-    goal: 2,
+    goal: 1,
     player: { x: 5, y: 7 },
     npc: { x: 6, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -175,7 +175,7 @@ const mapData = {
     openedDoors: []
   },
   level7: {
-    goal: 2,
+    goal: 1,
     player: { x: 6, y: 3 },
     npc: { x: 4, y: 5, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -206,7 +206,7 @@ const mapData = {
     openedDoors: []
   },
   level8: {
-    goal: 2,
+    goal: 1,
     player: { x: 4, y: 5 },
     npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -237,7 +237,7 @@ const mapData = {
     openedDoors: []
   },
   level9: {
-    goal: 2,
+    goal: 1,
     player: { x: 6, y: 3 },
     npc: { x: 4, y: 5, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -269,7 +269,7 @@ const mapData = {
     openedDoors: []
   },
   level10: {
-    goal: 2,
+    goal: 1,
     player: { x: 4, y: 5 },
     npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -300,7 +300,7 @@ const mapData = {
     openedDoors: []
   },
   level11: {
-    goal: 2,
+    goal: 1,
     player: { x: 6, y: 3 },
     npc: { x: 4, y: 5, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -332,7 +332,7 @@ const mapData = {
     openedDoors: []
   },
   level12: {
-    goal: 2,
+    goal: 1,
     player: { x: 4, y: 5 },
     npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -364,7 +364,7 @@ const mapData = {
     openedDoors: []
   },
   level13: {
-    goal: 2,
+    goal: 1,
     player: { x: 6, y: 3 },
     npc: { x: 4, y: 5, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
@@ -397,7 +397,7 @@ const mapData = {
     openedDoors: []
   },
   level14: {
-    goal: 2,
+    goal: 1,
     player: { x: 4, y: 5 },
     npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
     items: [
