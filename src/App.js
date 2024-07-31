@@ -27,6 +27,8 @@ const GridGame = () => {
       if (!prev) return null;
       let { player, npc, inventory, openedDoors, items, doors, sorcerers, blocks } = prev;
       
+      setStepsRemaining(steps => steps - 1);
+
       if (action === 'observe') {
         npc = moveNPC(npc, blocks, items, doors, sorcerers);
       } else {
@@ -39,7 +41,7 @@ const GridGame = () => {
             handleInteraction(object, inventory, openedDoors);
           } else {
             player = { ...player, x: newX, y: newY };
-            setStepsRemaining(steps => steps - 1);
+            
           }
         }
       }
