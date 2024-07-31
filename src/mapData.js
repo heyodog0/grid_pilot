@@ -1,18 +1,19 @@
 const mapData = {
   level1: {
-    player: {x:6,y:3},
-    npc: { ...{x:4,y:5}, movements: ['left', 'up', 'down', 'down'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:2}, color: 'red' },
+    goal: 2,
+    player: { x: 6, y: 3 },
+    npc: { x: 4, y: 5, movements: ['wait', 'wait', 'wait', 'down'], currentMovementIndex: 0 },
+    items: [
+      { type: 'sword', x: 8, y: 2 },
     ],
     doors: [
-      { ...{x:8,y:7}, color: 'blue', requiredKeys: ['red'] },
-      { ...{x:0,y:9}, color: 'green', requiredKeys: ['red', 'blue'] },
-      { ...{x:4,y:9}, color: 'red', requiredKeys: ['red'] },
+      { type: 'dragon', x: 8, y: 7, requiredItems: ['sword'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['sword', 'potion'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['antidote'] },
     ],
-    mysterySpots: [
-      { ...{x:2,y:0}, content: 'null', revealed: false },
-      { ...{x:4,y:0}, content: 'blue', revealed: false },
+    sorcerers: [
+      { x: 2, y: 0, content: 'antidote', revealed: false },
+      { x: 4, y: 0, content: 'potion', revealed: false },
     ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0}, {x:0,y:1},
@@ -23,23 +24,25 @@ const mapData = {
       {x:7,y:6}, {x:8,y:6}, {x:1,y:8}, {x:2,y:8}, {x:3,y:8}, {x:5,y:8}, {x:6,y:8}, {x:7,y:8},
       {x:8,y:8}, {x:1,y:9}, {x:2,y:9}, {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}, {x:8,y:9}
     ],
+    
     inventory: [],
     openedDoors: []
   },
   level2: {
-    player: {x:4,y:5},
-    npc: { ...{x:4,y:2}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:3}, color: 'yellow' },
+    goal: 2,
+    player: { x: 4, y: 5 },
+    npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'sword', x: 8, y: 3 },
     ],
     doors: [
-      { ...{x:8,y:5}, color: 'yellow', requiredKeys: ['yellow'] },
-      { ...{x:0,y:9}, color: 'blue', requiredKeys: ['blue'] },
-      { ...{x:4,y:9}, color: 'green', requiredKeys: ['yellow, blue'] },
+      { type: 'dragon', x: 8, y: 5, requiredItems: ['sword'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['potion', 'sword'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['antidote'] },
     ],
-    mysterySpots: [
-      { ...{x:0,y:0}, content: 'null', revealed: false },
-      { ...{x:8,y:7}, content: 'blue', revealed: false },
+    sorcerers: [
+      { x: 0, y: 0, content: 'antidote', revealed: false },
+      { x: 8, y: 7, content: 'potion', revealed: false },
     ],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:4,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0},
@@ -55,20 +58,21 @@ const mapData = {
     openedDoors: []
   },
   level3: {
-    player: {x:6,y:3},
-    npc: { ...{x:4,y:5}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:2}, color: 'orange' },
+    goal: 2,
+    player: { x: 6, y: 3 },
+    npc: { x: 4, y: 5, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'potion', x: 8, y: 2 },
     ],
     doors: [
-      { ...{x:8,y:7}, color: 'yellow', requiredKeys: ['yellow'] },
-      { ...{x:0,y:9}, color: 'red', requiredKeys: ['orange', 'yellow'] },
-      { ...{x:4,y:9}, color: 'orange', requiredKeys: ['orange'] },
+      { type: 'dragon', x: 8, y: 7, requiredItems: ['sword'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['potion', 'sword'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['potion'] },
     ],
-    mysterySpots: [
-      { ...{x:2,y:0}, content: 'null', revealed: false },
-      { ...{x:4,y:0}, content: 'null', revealed: false },
-      { ...{x:6,y:0}, content: 'yellow', revealed: false },
+    sorcerers: [
+      { x: 2, y: 0, content: 'antidote', revealed: false },
+      { x: 4, y: 0, content: 'antidote', revealed: false },
+      { x: 6, y: 0, content: 'sword', revealed: false },
     ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:0,y:1}, {x:1,y:1},
@@ -84,20 +88,21 @@ const mapData = {
     openedDoors: []
   },
   level4: {
-    player: {x:4,y:5},
-    npc: { ...{x:4,y:2}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:3}, color: 'orange' },
+    goal: 2,
+    player: { x: 4, y: 5 },
+    npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'potion', x: 8, y: 3 },
     ],
     doors: [
-      { ...{x:8,y:5}, color: 'blue', requiredKeys: ['blue'] },
-      { ...{x:0,y:9}, color: 'orange', requiredKeys: ['orange'] },
-      { ...{x:4,y:9}, color: 'red', requiredKeys: ['blue', 'orange'] },
+      { type: 'dragon', x: 8, y: 5, requiredItems: ['antidote'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['potion'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['antidote', 'potion'] },
     ],
-    mysterySpots: [
-      { ...{x:0,y:0}, content: 'null', revealed: false },
-      { ...{x:0,y:5}, content: 'null', revealed: false },
-      { ...{x:8,y:7}, content: 'blue', revealed: false },
+    sorcerers: [
+      { x: 0, y: 0, content: 'sword', revealed: false },
+      { x: 0, y: 5, content: 'sword', revealed: false },
+      { x: 8, y: 7, content: 'antidote', revealed: false },
     ],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:4,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0},
@@ -113,20 +118,21 @@ const mapData = {
     openedDoors: []
   },
   level5: {
-    player: {x:4,y:7},
-    npc: { ...{x:2,y:2}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:5}, color: 'purple' },
+    goal: 2,
+    player: { x: 4, y: 7 },
+    npc: { x: 2, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'antidote', x: 8, y: 5 },
     ],
     doors: [
-      { ...{x:8,y:2}, color: 'green', requiredKeys: ['green'] },
-      { ...{x:0,y:5}, color: 'purple', requiredKeys: ['purple'] },
-      { ...{x:8,y:7}, color: 'yellow', requiredKeys: ['purple', 'green'] },
+      { type: 'dragon', x: 8, y: 2, requiredItems: ['antidote'] },
+      { type: 'monster', x: 0, y: 5, requiredItems: ['antidote'] },
+      { type: 'princess', x: 8, y: 7, requiredItems: ['antidote', 'antidote'] },
     ],
-    mysterySpots: [
-      { ...{x:2,y:0}, content: 'green', revealed: false },
-      { ...{x:4,y:0}, content: 'null', revealed: false },
-      { ...{x:0,y:2}, content: 'null', revealed: false },
+    sorcerers: [
+      { x: 2, y: 0, content: 'antidote', revealed: false },
+      { x: 4, y: 0, content: 'sword', revealed: false },
+      { x: 0, y: 2, content: 'potion', revealed: false },
     ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0}, {x:0,y:1},
@@ -140,20 +146,21 @@ const mapData = {
     openedDoors: []
   },
   level6: {
-    player: {x:5,y:7},
-    npc: { ...{x:6,y:2}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:0,y:5}, color: 'yellow' },
+    goal: 2,
+    player: { x: 5, y: 7 },
+    npc: { x: 6, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'sword', x: 0, y: 5 },
     ],
     doors: [
-      { ...{x:8,y:0}, color: 'orange', requiredKeys: ['orange'] },
-      { ...{x:8,y:7}, color: 'yellow', requiredKeys: ['yellow'] },
-      { ...{x:0,y:9}, color: 'blue', requiredKeys: ['orange', 'yellow'] },
+      { type: 'dragon', x: 8, y: 0, requiredItems: ['potion'] },
+      { type: 'monster', x: 8, y: 7, requiredItems: ['sword'] },
+      { type: 'princess', x: 0, y: 9, requiredItems: ['potion', 'sword'] },
     ],
-    mysterySpots: [
-      { ...{x:4,y:0}, content: 'orange', revealed: false },
-      { ...{x:0,y:2}, content: 'null', revealed: false },
-      { ...{x:4,y:9}, content: 'null', revealed: false },
+    sorcerers: [
+      { x: 4, y: 0, content: 'potion', revealed: false },
+      { x: 0, y: 2, content: 'antidote', revealed: false },
+      { x: 4, y: 9, content: 'antidote', revealed: false },
     ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:0,y:1},
@@ -168,21 +175,22 @@ const mapData = {
     openedDoors: []
   },
   level7: {
-    player: {x:6,y:3},
-    npc: { ...{x:4,y:5}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:2}, color: 'blue' },
+    goal: 2,
+    player: { x: 6, y: 3 },
+    npc: { x: 4, y: 5, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'antidote', x: 8, y: 2 },
     ],
     doors: [
-      { ...{x:8,y:7}, color: 'blue', requiredKeys: ['blue'] },
-      { ...{x:0,y:9}, color: 'orange', requiredKeys: ['blue', 'green'] },
-      { ...{x:4,y:9}, color: 'green', requiredKeys: ['green'] },
+      { type: 'dragon', x: 8, y: 7, requiredItems: ['antidote'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['antidote', 'antidote'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['antidote'] },
     ],
-    mysterySpots: [
-      { ...{x:2,y:0}, content: 'null', revealed: false },
-      { ...{x:4,y:0}, content: 'null', revealed: false },
-      { ...{x:6,y:0}, content: 'null', revealed: false },
-      { ...{x:0,y:2}, content: 'green', revealed: false },
+    sorcerers: [
+      { x: 2, y: 0, content: 'sword', revealed: false },
+      { x: 4, y: 0, content: 'potion', revealed: false },
+      { x: 6, y: 0, content: 'antidote', revealed: false },
+      { x: 0, y: 2, content: 'antidote', revealed: false },
     ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:0,y:1}, {x:1,y:1},
@@ -198,21 +206,22 @@ const mapData = {
     openedDoors: []
   },
   level8: {
-    player: {x:4,y:5},
-    npc: { ...{x:4,y:2}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:3}, color: 'blue' },
+    goal: 2,
+    player: { x: 4, y: 5 },
+    npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'antidote', x: 8, y: 3 },
     ],
     doors: [
-      { ...{x:8,y:5}, color: 'blue', requiredKeys: ['blue'] },
-      { ...{x:0,y:9}, color: 'orange', requiredKeys: ['orange'] },
-      { ...{x:4,y:9}, color: 'yellow', requiredKeys: ['blue', 'orange'] },
+      { type: 'dragon', x: 8, y: 5, requiredItems: ['antidote'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['potion'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['antidote', 'potion'] },
     ],
-    mysterySpots: [
-      { ...{x:0,y:0}, content: 'orange', revealed: false },
-      { ...{x:8,y:0}, content: 'null', revealed: false },
-      { ...{x:0,y:5}, content: 'null', revealed: false },
-      { ...{x:8,y:7}, content: 'null', revealed: false },
+    sorcerers: [
+      { x: 0, y: 0, content: 'potion', revealed: false },
+      { x: 8, y: 0, content: 'sword', revealed: false },
+      { x: 0, y: 5, content: 'sword', revealed: false },
+      { x: 8, y: 7, content: 'antidote', revealed: false },
     ],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:4,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:0,y:2},
@@ -228,22 +237,23 @@ const mapData = {
     openedDoors: []
   },
   level9: {
-    player: {x:6,y:3},
-    npc: { ...{x:4,y:5}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:2}, color: 'orange' },
+    goal: 2,
+    player: { x: 6, y: 3 },
+    npc: { x: 4, y: 5, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'potion', x: 8, y: 2 },
     ],
     doors: [
-      { ...{x:8,y:7}, color: 'orange', requiredKeys: ['orange'] },
-      { ...{x:0,y:9}, color: 'purple', requiredKeys: ['purple'] },
-      { ...{x:4,y:9}, color: 'red', requiredKeys: ['purple', 'orange'] },
+      { type: 'dragon', x: 8, y: 7, requiredItems: ['potion'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['antidote'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['antidote', 'potion'] },
     ],
-    mysterySpots: [
-      { ...{x:0,y:0}, content: 'null', revealed: false },
-      { ...{x:2,y:0}, content: 'null', revealed: false },
-      { ...{x:4,y:0}, content: 'null', revealed: false },
-      { ...{x:6,y:0}, content: 'purple', revealed: false },
-      { ...{x:0,y:4}, content: 'null', revealed: false },
+    sorcerers: [
+      { x: 0, y: 0, content: 'sword', revealed: false },
+      { x: 2, y: 0, content: 'potion', revealed: false },
+      { x: 4, y: 0, content: 'antidote', revealed: false },
+      { x: 6, y: 0, content: 'antidote', revealed: false },
+      { x: 0, y: 4, content: 'sword', revealed: false },
     ],
     blocks: [
       {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:1,y:1}, {x:3,y:1}, {x:5,y:1},
@@ -259,22 +269,23 @@ const mapData = {
     openedDoors: []
   },
   level10: {
-    player: {x:4,y:5},
-    npc: { ...{x:4,y:2}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:3}, color: 'blue' },
+    goal: 2,
+    player: { x: 4, y: 5 },
+    npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'antidote', x: 8, y: 3 },
     ],
     doors: [
-      { ...{x:8,y:5}, color: 'blue', requiredKeys: ['blue'] },
-      { ...{x:0,y:9}, color: 'orange', requiredKeys: ['orange'] },
-      { ...{x:4,y:9}, color: 'green', requiredKeys: ['orange', 'blue'] },
+      { type: 'dragon', x: 8, y: 5, requiredItems: ['antidote'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['potion'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['potion', 'antidote'] },
     ],
-    mysterySpots: [
-      { ...{x:0,y:0}, content: 'null', revealed: false },
-      { ...{x:4,y:0}, content: 'null', revealed: false },
-      { ...{x:8,y:0}, content: 'null', revealed: false },
-      { ...{x:0,y:5}, content: 'null', revealed: false },
-      { ...{x:8,y:7}, content: 'orange', revealed: false },
+    sorcerers: [
+      { x: 0, y: 0, content: 'sword', revealed: false },
+      { x: 4, y: 0, content: 'potion', revealed: false },
+      { x: 8, y: 0, content: 'antidote', revealed: false },
+      { x: 0, y: 5, content: 'sword', revealed: false },
+      { x: 8, y: 7, content: 'potion', revealed: false },
     ],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:0,y:2}, {x:1,y:2},
@@ -289,23 +300,24 @@ const mapData = {
     openedDoors: []
   },
   level11: {
-    player: {x:6,y:3},
-    npc: { ...{x:4,y:5}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:2}, color: 'yellow' },
+    goal: 2,
+    player: { x: 6, y: 3 },
+    npc: { x: 4, y: 5, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'sword', x: 8, y: 2 },
     ],
     doors: [
-      { ...{x:8,y:7}, color: 'red', requiredKeys: ['red'] },
-      { ...{x:0,y:9}, color: 'purple', requiredKeys: ['yellow', 'red'] },
-      { ...{x:4,y:9}, color: 'yellow', requiredKeys: ['yellow'] },
+      { type: 'dragon', x: 8, y: 7, requiredItems: ['sword'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['sword', 'sword'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['sword'] },
     ],
-    mysterySpots: [
-      { ...{x:0,y:0}, content: 'null', revealed: false },
-      { ...{x:2,y:0}, content: 'null', revealed: false },
-      { ...{x:4,y:0}, content: 'red', revealed: false },
-      { ...{x:6,y:0}, content: 'null', revealed: false },
-      { ...{x:0,y:4}, content: 'null', revealed: false },
-      { ...{x:8,y:5}, content: 'null', revealed: false },
+    sorcerers: [
+      { x: 0, y: 0, content: 'potion', revealed: false },
+      { x: 2, y: 0, content: 'antidote', revealed: false },
+      { x: 4, y: 0, content: 'sword', revealed: false },
+      { x: 6, y: 0, content: 'potion', revealed: false },
+      { x: 0, y: 4, content: 'antidote', revealed: false },
+      { x: 8, y: 5, content: 'sword', revealed: false },
     ],
     blocks: [
       {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:1,y:1}, {x:3,y:1}, {x:5,y:1},
@@ -320,23 +332,24 @@ const mapData = {
     openedDoors: []
   },
   level12: {
-    player: {x:4,y:5},
-    npc: { ...{x:4,y:2}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:3}, color: 'purple' },
+    goal: 2,
+    player: { x: 4, y: 5 },
+    npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'antidote', x: 8, y: 3 },
     ],
     doors: [
-      { ...{x:8,y:5}, color: 'yellow', requiredKeys: ['purple', 'blue'] },
-      { ...{x:0,y:9}, color: 'blue', requiredKeys: ['blue'] },
-      { ...{x:4,y:9}, color: 'purple', requiredKeys: ['purple'] },
+      { type: 'dragon', x: 8, y: 5, requiredItems: ['antidote', 'potion'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['potion'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['antidote'] },
     ],
-    mysterySpots: [
-      { ...{x:0,y:0}, content: 'null', revealed: false },
-      { ...{x:4,y:0}, content: 'null', revealed: false },
-      { ...{x:8,y:0}, content: 'null', revealed: false },
-      { ...{x:0,y:5}, content: 'blue', revealed: false },
-      { ...{x:8,y:7}, content: 'null', revealed: false },
-      { ...{x:7,y:9}, content: 'null', revealed: false },
+    sorcerers: [
+      { x: 0, y: 0, content: 'sword', revealed: false },
+      { x: 4, y: 0, content: 'potion', revealed: false },
+      { x: 8, y: 0, content: 'antidote', revealed: false },
+      { x: 0, y: 5, content: 'potion', revealed: false },
+      { x: 8, y: 7, content: 'sword', revealed: false },
+      { x: 7, y: 9, content: 'antidote', revealed: false },
     ],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:0,y:2}, {x:1,y:2},
@@ -351,24 +364,25 @@ const mapData = {
     openedDoors: []
   },
   level13: {
-    player: {x:6,y:3},
-    npc: { ...{x:4,y:5}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:2}, color: 'orange' },
+    goal: 2,
+    player: { x: 6, y: 3 },
+    npc: { x: 4, y: 5, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'potion', x: 8, y: 2 },
     ],
     doors: [
-      { ...{x:8,y:7}, color: 'purple', requiredKeys: ['orange', 'blue'] },
-      { ...{x:0,y:9}, color: 'blue', requiredKeys: ['blue'] },
-      { ...{x:4,y:9}, color: 'orange', requiredKeys: ['orange'] },
+      { type: 'dragon', x: 8, y: 7, requiredItems: ['potion', 'antidote'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['antidote'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['potion'] },
     ],
-    mysterySpots: [
-      { ...{x:0,y:0}, content: 'null', revealed: false },
-      { ...{x:2,y:0}, content: 'null', revealed: false },
-      { ...{x:4,y:0}, content: 'null', revealed: false },
-      { ...{x:6,y:0}, content: 'null', revealed: false },
-      { ...{x:0,y:4}, content: 'null', revealed: false },
-      { ...{x:8,y:5}, content: 'blue', revealed: false },
-      { ...{x:6,y:9}, content: 'null', revealed: false },
+    sorcerers: [
+      { x: 0, y: 0, content: 'sword', revealed: false },
+      { x: 2, y: 0, content: 'potion', revealed: false },
+      { x: 4, y: 0, content: 'antidote', revealed: false },
+      { x: 6, y: 0, content: 'sword', revealed: false },
+      { x: 0, y: 4, content: 'potion', revealed: false },
+      { x: 8, y: 5, content: 'antidote', revealed: false },
+      { x: 6, y: 9, content: 'sword', revealed: false },
     ],
     blocks: [
       {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:1,y:1}, {x:3,y:1}, {x:5,y:1},
@@ -383,24 +397,25 @@ const mapData = {
     openedDoors: []
   },
   level14: {
-    player: {x:4,y:5},
-    npc: { ...{x:4,y:2}, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
-    keys: [
-      { ...{x:8,y:3}, color: 'orange' },
+    goal: 2,
+    player: { x: 4, y: 5 },
+    npc: { x: 4, y: 2, movements: ['right', 'down', 'left', 'up'], currentMovementIndex: 0 },
+    items: [
+      { type: 'potion', x: 8, y: 3 },
     ],
     doors: [
-      { ...{x:8,y:5}, color: 'red', requiredKeys: ['red'] },
-      { ...{x:0,y:9}, color: 'orange', requiredKeys: ['orange'] },
-      { ...{x:4,y:9}, color: 'blue', requiredKeys: ['red','orange'] },
+      { type: 'dragon', x: 8, y: 5, requiredItems: ['sword'] },
+      { type: 'monster', x: 0, y: 9, requiredItems: ['potion'] },
+      { type: 'princess', x: 4, y: 9, requiredItems: ['sword', 'potion'] },
     ],
-    mysterySpots: [
-      { ...{x:0,y:0}, content: 'null', revealed: false },
-      { ...{x:4,y:0}, content: 'null', revealed: false },
-      { ...{x:8,y:0}, content: 'null', revealed: false },
-      { ...{x:0,y:5}, content: 'null', revealed: false },
-      { ...{x:8,y:7}, content: 'null', revealed: false },
-      { ...{x:2,y:9}, content: 'red', revealed: false },
-      { ...{x:7,y:9}, content: 'null', revealed: false },
+    sorcerers: [
+      { x: 0, y: 0, content: 'antidote', revealed: false },
+      { x: 4, y: 0, content: 'potion', revealed: false },
+      { x: 8, y: 0, content: 'sword', revealed: false },
+      { x: 0, y: 5, content: 'antidote', revealed: false },
+      { x: 8, y: 7, content: 'potion', revealed: false },
+      { x: 2, y: 9, content: 'sword', revealed: false },
+      { x: 7, y: 9, content: 'antidote', revealed: false },
     ],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:0,y:2}, {x:1,y:2},
@@ -414,7 +429,5 @@ const mapData = {
     inventory: [],
     openedDoors: []
   },
-
 };
-
 export default mapData;
