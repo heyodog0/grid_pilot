@@ -187,7 +187,7 @@ const GridGame = () => {
         <div className="flex flex-col items-start w-1/4">
           <div className="text-xl font-bold mb-4">Goal: {goalTexts[state.goal]}</div>
           <div className="text-lg font-semibold mb-4">
-            Steps Remaining: {stepsRemaining/2}
+            Steps Remaining: {stepsRemaining}
           </div>
         </div>
   
