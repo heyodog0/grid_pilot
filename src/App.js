@@ -9,7 +9,7 @@ const GridGame = () => {
   const [actionLog, setActionLog] = useState([]);
   const [goalAchieved, setGoalAchieved] = useState(false);
   const [stepsRemaining, setStepsRemaining] = useState(100);
-  const [maxSteps] = useState(100);
+  const [maxSteps] = useState(50);
   const levels = Object.keys(mapData);
 
   useEffect(() => {
@@ -186,7 +186,7 @@ const GridGame = () => {
   
       <div className="text-xl font-bold mb-4">Goal: {goalTexts[state.goal]}</div>
       <div className="text-lg font-semibold mb-4">
-        Steps Remaining: {stepsRemaining/2}
+        Steps Remaining: {stepsRemaining}
       </div>
       <div className="flex space-x-8">
         <div className="flex flex-col items-center">
