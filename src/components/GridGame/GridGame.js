@@ -15,7 +15,7 @@ const GridGame = () => {
   const [message, setMessage] = useState(null);
   const [actionLog, setActionLog] = useState([]);
   const [goalAchieved, setGoalAchieved] = useState(false);
-  const [stepsRemaining, setStepsRemaining] = useState(100);
+  const [stepsRemaining, setStepsRemaining] = useState(50);
   const levels = Object.keys(mapData);
 
   useEffect(() => {
