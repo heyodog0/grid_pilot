@@ -1,10 +1,10 @@
 import React from 'react';
-import { Sword, FlaskRound, Pill, User, UserMinus } from 'lucide-react';
+import { Sword, FlaskRound, Pill, User } from 'lucide-react';
 
 const Legend = () => {
   const legendItems = [
     { icon: User, color: 'text-yellow-500', label: 'Player' },
-    { icon: UserMinus, color: 'text-red-500', label: 'NPC' },
+    { icon: User, color: 'text-red-500', label: 'NPC' },
     { icon: Sword, color: 'text-gray-700', label: 'Sword' },
     { icon: FlaskRound, color: 'text-blue-500', label: 'Potion' },
     { icon: Pill, color: 'text-green-500', label: 'Antidote' },
