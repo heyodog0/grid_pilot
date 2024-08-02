@@ -80,6 +80,13 @@ const GridGame = () => {
     document.body.removeChild(link);
   };
 
+  // Function to get required items for the current goal
+  const getRequiredItems = useCallback(() => {
+    if (!state) return [];
+    const goalDoor = state.doors.find(door => door.type === ['dragon', 'monster', 'princess'][state.goal]);
+    return goalDoor ? goalDoor.requiredItems : [];
+  }, [state]);
+
   // Effect to handle keyboard inputs for game actions
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -123,7 +130,15 @@ const GridGame = () => {
       <div className="flex justify-center items-start space-x-8 w-full max-w-3xl">
         {/* Left column: Goal and Steps */}
         <div className="flex flex-col items-start w-1/4">
-          <div className="text-xl font-bold mb-4">Goal: {goalTexts[state.goal]}</div>
+          <div className="text-xl font-bold mb-2">Goal: {goalTexts[state.goal]}</div>
+          <div className="text-sm mb-4 p-2 border border-gray-300 rounded">
+            Required Items:
+            <ul className="list-disc list-inside">
+              {getRequiredItems().map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
           <div className="text-lg font-semibold mb-4">
             Steps Remaining: {stepsRemaining}
           </div>
