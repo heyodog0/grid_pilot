@@ -1,10 +1,10 @@
 import React from 'react';
-import { Sword, Flask, Pill } from 'lucide-react';
+import { Sword, RoundFlask, Pill } from 'lucide-react';
 
 const Inventory = ({ inventory }) => {
   const itemDetails = [
     { name: 'sword', icon: Sword, color: 'text-gray-700' },
-    { name: 'potion', icon: Flask, color: 'text-blue-500' },
+    { name: 'potion', icon: RoundFlask, color: 'text-blue-500' },
     { name: 'antidote', icon: Pill, color: 'text-green-500' }
   ];
 
