@@ -10,7 +10,7 @@ const Inventory = ({ inventory }) => {
 
   return (
     <div className="mt-1">
-      <h3 className="text-lg font-semibold mb-2">Inventory</h3>
+      <h3 className="text-lg font-semibold mb-2 text-center">Inventory</h3>
       <div className="flex space-x-2">
         {['sword', 'potion', 'antidote'].map(item => {
           const Icon = itemIcons[item];
