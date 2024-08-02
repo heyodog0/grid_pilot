@@ -1,7 +1,7 @@
 // File: src/components/GridGame/GridGame.js
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Download } from 'lucide-react';
+import { Download, RefreshCw } from 'lucide-react';
 import SelectComponent from 'react-select';
 import mapData from './mapData';
 import GameGrid from './GameGrid';
@@ -20,8 +20,8 @@ const GridGame = () => {
   const [stepsRemaining, setStepsRemaining] = useState(50);  // Number of steps player has left
   const levels = Object.keys(mapData);  // Available levels
 
-  // Effect to initialize or reset the game state when the level changes
-  useEffect(() => {
+  // Function to initialize or reset the game state
+  const initializeLevel = useCallback(() => {
     setState(mapData[currentLevel]);
     setGoalAchieved(false);
     setMessage(null);
@@ -29,10 +29,38 @@ const GridGame = () => {
     setActionLog(prev => [...prev, { action: 'Level Loaded', level: currentLevel, timestamp: new Date().toISOString() }]);
   }, [currentLevel]);
 
+  // Effect to initialize the game state when the level changes
+  useEffect(() => {
+    initializeLevel();
+  }, [currentLevel, initializeLevel]);
+
+  // Function to reset the current level
+  const resetLevel = () => {
+    initializeLevel();
+    setActionLog(prev => [...prev, { action: 'Level Reset', level: currentLevel, timestamp: new Date().toISOString() }]);
+  };
+
+  // Function to move to the next level
+  const moveToNextLevel = useCallback(() => {
+    const currentIndex = levels.indexOf(currentLevel);
+    if (currentIndex < levels.length - 1) {
+      setCurrentLevel(levels[currentIndex + 1]);
+    } else {
+      setMessage("Congratulations! You've completed all levels!");
+    }
+  }, [currentLevel, levels]);
+
   // Wrapper function for handling player actions
   const handlePlayerActionWrapper = useCallback((action) => {
-    handlePlayerAction(action, state, setState, setMessage, setActionLog, setStepsRemaining, setGoalAchieved);
-  }, [state]);
+    handlePlayerAction(action, state, setState, setMessage, setActionLog, setStepsRemaining, (achieved) => {
+      setGoalAchieved(achieved);
+      if (achieved) {
+        setTimeout(() => {
+          moveToNextLevel();
+        }, 2000);
+      }
+    });
+  }, [state, moveToNextLevel]);
 
   // Handler for changing levels
   const handleLevelChange = (selectedOption) => {
@@ -76,7 +104,7 @@ const GridGame = () => {
   // Render the game interface
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      {/* Level selection and action log export */}
+      {/* Level selection, reset button, and action log export */}
       <div className="flex justify-center space-x-2 mb-4">
         <SelectComponent
           value={{ value: currentLevel, label: currentLevel }}
@@ -84,6 +112,9 @@ const GridGame = () => {
           options={levelOptions}
           className="w-[180px]"
         />
+        <button onClick={resetLevel} className="p-2 bg-yellow-500 text-white rounded flex items-center">
+          <RefreshCw size={16} className="mr-1" /> Reset Level
+        </button>
         <button onClick={exportActionLog} className="p-2 bg-green-500 text-white rounded flex items-center">
           <Download size={16} className="mr-1" /> Export Log
         </button>
