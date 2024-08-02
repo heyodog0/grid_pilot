@@ -107,7 +107,7 @@ const GridGame = () => {
   const goalTexts = ['Slay the dragon', 'Slay the monster', 'Save the princess'];
   const levelOptions = levels.map(level => ({ value: level, label: level }));
 
-  // Render the game interface
+  /// Render the game interface
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       {/* Level selection, reset button, and action log export */}
@@ -128,7 +128,7 @@ const GridGame = () => {
 
       {/* Main game area */}
       <div className="flex justify-center items-start space-x-8 w-full max-w-3xl">
-        {/* Left column: Goal and Steps */}
+        {/* Left column: Goal, Required Items, Steps, and Legend */}
         <div className="flex flex-col items-start w-1/4">
           <div className="text-xl font-bold mb-2">Goal: {goalTexts[state.goal]}</div>
           <div className="text-sm mb-4 p-2 border border-gray-300 rounded">
@@ -142,6 +142,7 @@ const GridGame = () => {
           <div className="text-lg font-semibold mb-4">
             Steps Remaining: {stepsRemaining}
           </div>
+          <Legend />
         </div>
 
         {/* Center column: Game Grid and Inventory */}
