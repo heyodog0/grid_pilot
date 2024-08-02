@@ -25,7 +25,6 @@ const GridGame = () => {
     setState(mapData[currentLevel]);
     setGoalAchieved(false);
     setMessage(null);
-    setStepsRemaining(100);
     setActionLog(prev => [...prev, { action: 'Level Loaded', level: currentLevel, timestamp: new Date().toISOString() }]);
   }, [currentLevel]);
 
