@@ -1,6 +1,6 @@
 const mapData = {
   level1: {
-    goal: 2,
+    goal: 1,
     player: { x: 6, y: 3 },
     npc: { x: 4, y: 5, movements: ['up', 'up', 'up', 'up', 'down', 'down', 'down', 'down', 'down', 'down', 'left', 'left', 'left', 'left', 'down'], currentMovementIndex: 0 },
     items: [
@@ -49,7 +49,7 @@ const mapData = {
     openedDoors: [],
   },
   level3: {
-    goal: 2,
+    goal: 1,
     player: {'x': 6, 'y': 3},
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 2}],
@@ -89,7 +89,7 @@ const mapData = {
     openedDoors: [],
   },
   level5: {
-    goal: 2,
+    goal: 1,
     player: {'x': 2, 'y': 2},
     npc: { x: 4, y: 7, movements: ["left", "left", "up", "up", "up", "up", "down", "right", "right", "right", "right", "down", "down", "down", "down", "down", "right"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 5}],
@@ -107,7 +107,7 @@ const mapData = {
     openedDoors: [],
   },
   level6: {
-    goal: 2,
+    goal: 1,
     player: {'x': 4, 'y': 7},
     npc: { x: 2, y: 2, movements: ["right", "right", "right", "right", "down", "down", "down", "right", "left", "up", "up", "up", "right"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 5}],
@@ -125,7 +125,7 @@ const mapData = {
     openedDoors: [],
   },
   level7: {
-    goal: 2,
+    goal: 0,
     player: {'x': 4, 'y': 7},
     npc: { x: 2, y: 2, movements: ["right", "right", "right", "right", "down", "down", "down", "right", "left", "up", "up", "up", "right"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 5}],
@@ -181,7 +181,7 @@ const mapData = {
     openedDoors: [],
   },
   level10: {
-    goal: 2,
+    goal: 0,
     player: {'x': 5, 'y': 7},
     npc: { x: 6, y: 2, movements: ["left", "left", "up", "down", "right", "right", "down", "down", "down", "down", "down", "right", "right", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 0, 'y': 5}],
@@ -200,7 +200,7 @@ const mapData = {
     openedDoors: [],
   },
   level11: {
-    goal: 2,
+    goal: 1,
     player: {'x': 6, 'y': 3},
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 2}],
@@ -239,7 +239,7 @@ const mapData = {
     openedDoors: [],
   },
   level13: {
-    goal: 2,
+    goal: 1,
     player: {'x': 6, 'y': 3},
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 2}],
@@ -278,7 +278,7 @@ const mapData = {
     openedDoors: [],
   },
   level15: {
-    goal: 2,
+    goal: 1,
     player: {'x': 6, 'y': 3},
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 2}],
