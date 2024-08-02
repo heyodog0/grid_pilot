@@ -54,7 +54,7 @@ const mapData = {
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 2}],
     doors: [{'type': 'monster', 'x': 8, 'y': 7, 'requiredItems': ['sword', 'potion']}, {'type': 'princess', 'x': 0, 'y': 9, 'requiredItems': ['antidote']}, {'type': 'dragon', 'x': 4, 'y': 9, 'requiredItems': ['sword']}],
-    sorcerers: [{'x': 2, 'y': 0, 'content': 'potion', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'sword', 'revealed': false}],
+    sorcerers: [{'x': 2, 'y': 0, 'content': 'potion', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'nothing', 'revealed': false}],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:0,y:1},,
       {x:1,y:1}, {x:3,y:1}, {x:5,y:1}, {x:7,y:1}, {x:8,y:1}, {x:0,y:3}, {x:1,y:3},,
@@ -74,7 +74,7 @@ const mapData = {
     npc: { x: 4, y: 2, movements: ["down", "right", "right", "right", "left", "left", "left", "down", "down", "down", "down", "right", "right", "right"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 3}],
     doors: [{'type': 'dragon', 'x': 8, 'y': 7, 'requiredItems': ['sword']}, {'type': 'monster', 'x': 0, 'y': 9, 'requiredItems': ['sword', 'potion']}, {'type': 'princess', 'x': 4, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'sword', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'potion', 'revealed': false}],
+    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'empty', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'potion', 'revealed': false}],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:4,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
       {x:8,y:0}, {x:0,y:2}, {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2},,
@@ -94,7 +94,7 @@ const mapData = {
     npc: { x: 4, y: 7, movements: ["left", "left", "up", "up", "up", "up", "down", "right", "right", "right", "right", "down", "down", "down", "down", "down", "right"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 5}],
     doors: [{'type': 'monster', 'x': 8, 'y': 2, 'requiredItems': ['sword', 'potion']}, {'type': 'dragon', 'x': 0, 'y': 5, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 7, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 2, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'potion', 'revealed': false}],
+    sorcerers: [{'x': 2, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'potion', 'revealed': false}],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1}, {x:8,y:1},,
@@ -112,7 +112,7 @@ const mapData = {
     npc: { x: 2, y: 2, movements: ["right", "right", "right", "right", "down", "down", "down", "right", "left", "up", "up", "up", "right"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 5}],
     doors: [{'type': 'monster', 'x': 8, 'y': 2, 'requiredItems': ['sword', 'potion']}, {'type': 'dragon', 'x': 0, 'y': 5, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 7, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 2, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'potion', 'revealed': false}],
+    sorcerers: [{'x': 2, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'potion', 'revealed': false}],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1}, {x:8,y:1},,
@@ -130,7 +130,7 @@ const mapData = {
     npc: { x: 2, y: 2, movements: ["right", "right", "right", "right", "down", "down", "down", "right", "left", "up", "up", "up", "right"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 5}],
     doors: [{'type': 'monster', 'x': 8, 'y': 2, 'requiredItems': ['sword', 'potion']}, {'type': 'dragon', 'x': 0, 'y': 5, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 7, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 2, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'potion', 'revealed': false}],
+    sorcerers: [{'x': 2, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'potion', 'revealed': false}],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1}, {x:8,y:1},,
@@ -148,7 +148,7 @@ const mapData = {
     npc: { x: 5, y: 7, movements: ["left", "up", "up", "left", "left", "up", "up", "up", "right", "right", "up", "down", "right", "right", "down", "down", "down", "down", "down", "right", "right", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 0, 'y': 5}],
     doors: [{'type': 'monster', 'x': 8, 'y': 0, 'requiredItems': ['sword', 'potion']}, {'type': 'dragon', 'x': 0, 'y': 9, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'sword', 'revealed': false}, {'x': 4, 'y': 9, 'content': 'potion', 'revealed': false}],
+    sorcerers: [{'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'nothing', 'revealed': false}, {'x': 4, 'y': 9, 'content': 'potion', 'revealed': false}],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:2,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1},,
@@ -167,7 +167,7 @@ const mapData = {
     npc: { x: 6, y: 2, movements: ["left", "left", "up", "down", "right", "right", "down", "down", "down", "down", "down", "right", "right", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 0, 'y': 5}],
     doors: [{'type': 'monster', 'x': 8, 'y': 0, 'requiredItems': ['sword', 'potion']}, {'type': 'dragon', 'x': 0, 'y': 9, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'sword', 'revealed': false}, {'x': 4, 'y': 9, 'content': 'potion', 'revealed': false}],
+    sorcerers: [{'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'nothing', 'revealed': false}, {'x': 4, 'y': 9, 'content': 'potion', 'revealed': false}],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:2,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1},,
@@ -186,7 +186,7 @@ const mapData = {
     npc: { x: 6, y: 2, movements: ["left", "left", "up", "down", "right", "right", "down", "down", "down", "down", "down", "right", "right", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 0, 'y': 5}],
     doors: [{'type': 'monster', 'x': 8, 'y': 0, 'requiredItems': ['sword', 'potion']}, {'type': 'dragon', 'x': 0, 'y': 9, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'sword', 'revealed': false}, {'x': 4, 'y': 9, 'content': 'potion', 'revealed': false}],
+    sorcerers: [{'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'nothing', 'revealed': false}, {'x': 4, 'y': 9, 'content': 'potion', 'revealed': false}],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:2,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1},,
@@ -205,7 +205,7 @@ const mapData = {
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 2}],
     doors: [{'type': 'monster', 'x': 8, 'y': 7, 'requiredItems': ['sword', 'potion']}, {'type': 'princess', 'x': 0, 'y': 9, 'requiredItems': ['antidote']}, {'type': 'dragon', 'x': 4, 'y': 9, 'requiredItems': ['sword']}],
-    sorcerers: [{'x': 2, 'y': 0, 'content': 'potion', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'sword', 'revealed': false}],
+    sorcerers: [{'x': 2, 'y': 0, 'content': 'potion', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'nothing', 'revealed': false}],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:0,y:1},,
       {x:1,y:1}, {x:3,y:1}, {x:5,y:1}, {x:7,y:1}, {x:8,y:1}, {x:0,y:3}, {x:1,y:3},,
@@ -225,7 +225,7 @@ const mapData = {
     npc: { x: 4, y: 2, movements: ["down", "right", "right", "right", "left", "left", "left", "down", "down", "down", "down", "right", "right", "right"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 3}],
     doors: [{'type': 'dragon', 'x': 8, 'y': 7, 'requiredItems': ['sword']}, {'type': 'monster', 'x': 0, 'y': 9, 'requiredItems': ['sword', 'potion']}, {'type': 'princess', 'x': 4, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 8, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'sword', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'potion', 'revealed': false}],
+    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 8, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'potion', 'revealed': false}],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:4,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
       {x:0,y:2}, {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2}, {x:7,y:2},,
@@ -244,7 +244,7 @@ const mapData = {
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 2}],
     doors: [{'type': 'monster', 'x': 8, 'y': 7, 'requiredItems': ['sword', 'potion']}, {'type': 'princess', 'x': 0, 'y': 9, 'requiredItems': ['antidote']}, {'type': 'dragon', 'x': 4, 'y': 9, 'requiredItems': ['sword']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 2, 'y': 0, 'content': 'potion', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 0, 'y': 4, 'content': 'sword', 'revealed': false}],
+    sorcerers: [{'x': 0, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 2, 'y': 0, 'content': 'potion', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 4, 'content': 'nothing', 'revealed': false}],
     blocks: [
       {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:1,y:1}, {x:3,y:1},,
       {x:5,y:1}, {x:7,y:1}, {x:8,y:1}, {x:1,y:3}, {x:2,y:3}, {x:3,y:3}, {x:5,y:3},,
@@ -264,7 +264,7 @@ const mapData = {
     npc: { x: 4, y: 2, movements: ["down", "right", "right", "right", "left", "left", "left", "down", "down", "down", "down", "right", "right", "right"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 3}],
     doors: [{'type': 'dragon', 'x': 8, 'y': 7, 'requiredItems': ['sword']}, {'type': 'monster', 'x': 0, 'y': 9, 'requiredItems': ['sword', 'potion']}, {'type': 'princess', 'x': 4, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 8, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'sword', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'potion', 'revealed': false}],
+    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'potion', 'revealed': false}],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:0,y:2},,
       {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2}, {x:7,y:2}, {x:8,y:2},,
@@ -283,7 +283,7 @@ const mapData = {
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 2}],
     doors: [{'type': 'monster', 'x': 8, 'y': 7, 'requiredItems': ['sword', 'potion']}, {'type': 'princess', 'x': 0, 'y': 9, 'requiredItems': ['antidote']}, {'type': 'dragon', 'x': 4, 'y': 9, 'requiredItems': ['sword']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 2, 'y': 0, 'content': 'potion', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 0, 'y': 4, 'content': 'sword', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'sword', 'revealed': false}],
+    sorcerers: [{'x': 0, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 2, 'y': 0, 'content': 'potion', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 4, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'nothing', 'revealed': false}],
     blocks: [
       {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:1,y:1}, {x:3,y:1},,
       {x:5,y:1}, {x:7,y:1}, {x:8,y:1}, {x:1,y:3}, {x:2,y:3}, {x:3,y:3}, {x:5,y:3},,
@@ -302,7 +302,7 @@ const mapData = {
     npc: { x: 4, y: 2, movements: ["down", "right", "right", "right", "left", "left", "left", "down", "down", "down", "down", "right", "right", "right"], currentMovementIndex: 0 },
     items: [{'type': 'sword', 'x': 8, 'y': 3}],
     doors: [{'type': 'dragon', 'x': 8, 'y': 7, 'requiredItems': ['sword']}, {'type': 'monster', 'x': 0, 'y': 9, 'requiredItems': ['sword', 'potion']}, {'type': 'princess', 'x': 4, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 8, 'y': 0, 'content': 'sword', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'sword', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'potion', 'revealed': false}, {'x': 7, 'y': 9, 'content': 'sword', 'revealed': false}],
+    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'potion', 'revealed': false}, {'x': 7, 'y': 9, 'content': 'nothing', 'revealed': false}],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:0,y:2},,
       {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2}, {x:7,y:2}, {x:8,y:2},,
