@@ -12,7 +12,7 @@ const ActionButtons = ({ handlePlayerAction, goalAchieved }) => {
 
   return (
     <div className="-ml-8"> {/* Negative margin to move buttons closer to the grid */}
-      <h3 className="text-lg font-semibold mb-1 ml-2">Actions</h3>
+      <h3 className="text-lg font-semibold mb-1 ml-0">Actions</h3>
       <div className="flex flex-col space-y-1">
         {buttons.map((button) => (
           <button 
