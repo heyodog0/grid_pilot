@@ -315,37 +315,5 @@ const mapData = {
     inventory: [],
     openedDoors: [],
   },
-  level16: {
-    goal: 2,
-    player: { x: 4, y: 5 },
-    npc: { x: 4, y: 2, movements: ['down', 'right', 'right', 'right', 'left', 'left', 'left', 'down', 'down', 'down', 'down', 'right', 'right', 'right'], currentMovementIndex: 0 },
-    items: [
-      { type: 'sword', x: 8, y: 3 },
-    ],
-    doors: [
-      { type: 'dragon', x: 8, y: 7, requiredItems: ['sword'] },
-      { type: 'monster', x: 0, y: 9, requiredItems: ['sword', 'potion'] },
-      { type: 'princess', x: 4, y: 9, requiredItems: ['antidote'] },
-    ],
-    sorcerers: [
-      { x: 0, y: 0, content: 'antidote', revealed: false },
-      { x: 4, y: 0, content: 'sword', revealed: false },
-      { x: 8, y: 0, content: 'sword', revealed: false },
-      { x: 0, y: 5, content: 'sword', revealed: false },
-      { x: 8, y: 5, content: 'potion', revealed: false },
-      { x: 8, y: 9, content: 'sword', revealed: false },
-    ],
-    blocks: [
-      {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:0,y:2},
-      {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2}, {x:7,y:2}, {x:8,y:2},
-      {x:0,y:3}, {x:1,y:3}, {x:2,y:3}, {x:3,y:3}, {x:0,y:4}, {x:1,y:4}, {x:2,y:4},
-      {x:3,y:4}, {x:5,y:4}, {x:6,y:4}, {x:7,y:4}, {x:8,y:4}, {x:0,y:6}, {x:1,y:6},
-      {x:2,y:6}, {x:3,y:6}, {x:5,y:6}, {x:6,y:6}, {x:7,y:6}, {x:7,y:8}, {x:8,y:6}, {x:1,y:8},
-      {x:3,y:8}, {x:5,y:8}, {x:6,y:8}, {x:2,y:8}, {x:1,y:9}, {x:2,y:9}, {x:3,y:9}, {x:5,y:9},
-      {x:6,y:9}, {x:7,y:9}
-    ],
-    inventory: [],
-    openedDoors: []
-  },
 };
 export default mapData;
