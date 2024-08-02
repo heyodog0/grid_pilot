@@ -9,7 +9,7 @@ const GameGrid = ({ state }) => {
 
   return (
     // Main container for the game grid
-    <div className="relative w-72 h-80 bg-gray-300 mb-4">
+    <div className="relative w-72 h-80 bg-gray-100 mb-4">
       {/* Create a 9x10 grid of cells */}
       {[...Array(90)].map((_, i) => {
         // Calculate x and y coordinates for each cell
