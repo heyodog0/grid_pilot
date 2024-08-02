@@ -7,6 +7,7 @@ import mapData from './mapData';
 import GameGrid from './GameGrid';
 import ActionButtons from './ActionButtons';
 import Inventory from './Inventory';
+import Legend from './Legend';
 import { handlePlayerAction, initiateGoalCompletion } from './gameLogic';
 
 // Main component for the Grid Game
