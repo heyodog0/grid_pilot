@@ -1,56 +1,45 @@
 // File: src/components/GridGame/gameLogic.js
 
 // Main function to handle player actions
-export const handlePlayerAction = (action, state, setState, setMessage, setActionLog, setStepsRemaining, setGoalAchieved) => {
-  // Check if the game is over (goal achieved or no steps remaining)
+export const handlePlayerAction = (action, state, setState, setMessage, setActionLog, setStepsRemaining, setGoalAchieved, setNpcTrail) => {
   if (state.goalAchieved || state.stepsRemaining <= 0) return;
 
   setState(prev => {
     if (!prev) return null;
-    // Destructure the current state
     let { player, npc, inventory, openedDoors, items, doors, sorcerers, blocks } = prev;
     
-    // Decrement the remaining steps
     setStepsRemaining(steps => steps - 1);
 
     if (action === 'observe') {
-      // If the action is 'observe', only move the NPC
-      npc = moveNPC(npc, blocks, items, doors, sorcerers, prev.npc.movements);
+      // Only move the NPC for 'observe' action
+      npc = moveNPC(npc, blocks, items, doors, sorcerers);
+      // Update NPC trail here if needed
+      setNpcTrail(prevTrail => [...prevTrail, { x: npc.x, y: npc.y }]);
     } else {
-      // For movement actions, calculate the new position
+      // Player movement logic
       const [dx, dy] = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[action];
       const newX = player.x + dx, newY = player.y + dy;
 
-      // Check if the move is valid (within bounds and not blocked)
       if (isValidMove(newX, newY, blocks)) {
-        // Check if there's an object at the new position
         const object = [...items, ...sorcerers, ...doors].find(o => o.x === newX && o.y === newY);
         if (object) {
-          // If there's an object, handle the interaction
           handleInteraction(object, inventory, openedDoors, setMessage, setGoalAchieved, prev.goal, setActionLog);
         } else {
-          // If there's no object, move the player
           player = { ...player, x: newX, y: newY };
         }
       }
-
-      // Move the NPC after the player's action
-      npc = moveNPC(npc, blocks, items, doors, sorcerers, prev.npc.movements);
     }
 
-    // Log the action
     setActionLog(prevLog => [...prevLog, { action, timestamp: new Date().toISOString() }]);
-    // Return the updated state
     return { ...prev, player, npc, inventory, openedDoors };
   });
 };
 
-// Function to move the NPC (Non-Player Character)
 export const moveNPC = (npc, blocks, items, doors, sorcerers) => {
   const { x, y, currentMovementIndex, movements } = npc;
   
-  if (currentMovementIndex >= movements.length) {
-    return npc; // No more movements, NPC stays in place
+  if (!movements || currentMovementIndex >= movements.length) {
+    return npc; // No more movements or movements undefined, NPC stays in place
   }
 
   const currentMovement = movements[currentMovementIndex];
@@ -66,6 +55,8 @@ export const moveNPC = (npc, blocks, items, doors, sorcerers) => {
     return { ...npc, currentMovementIndex: currentMovementIndex + 1 };
   }
 };
+
+
 
 // Function to check if a move is valid (within bounds and not blocked)
 export const isValidMove = (x, y, blocks) => 
