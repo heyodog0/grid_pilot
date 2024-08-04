@@ -4,7 +4,7 @@ import { Sword, FlaskRound, Pill } from 'lucide-react';
 const Inventory = ({ inventory }) => {
   const itemDetails = [
     { name: 'sword', icon: Sword, color: 'text-gray-700' },
-    { name: 'potion', icon: FlaskRound, color: 'text-blue-500' },
+    { name: 'poison', icon: FlaskRound, color: 'text-purple-500' },
     { name: 'antidote', icon: Pill, color: 'text-green-500' }
   ];
 
