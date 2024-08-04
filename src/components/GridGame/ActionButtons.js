@@ -1,3 +1,5 @@
+// File: src/components/GridGame/ActionButtons.js
+
 import React from 'react';
 import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Eye } from 'lucide-react';
 
@@ -11,21 +13,21 @@ const ActionButtons = ({ handlePlayerAction, goalAchieved }) => {
   ];
 
   return (
-    <div className="-ml-8"> {/* Negative margin to move buttons closer to the grid */}
-      <h3 className="text-lg font-semibold mb-1 ml-0">Actions</h3>
-      <div className="flex flex-col space-y-1">
+    <div className="-ml-8">
+      <h3 className="text-xl font-semibold mb-2 ml-0">Actions</h3>
+      <div className="flex flex-col space-y-2">
         {buttons.map((button) => (
           <button 
             key={button.action}
             onClick={() => handlePlayerAction(button.action)} 
-            className={`w-16 h-12 ${goalAchieved ? 'bg-gray-400' : 'bg-blue-500'} text-white rounded flex flex-col items-center justify-center`}
+            className={`w-24 h-16 ${goalAchieved ? 'bg-gray-400' : 'bg-blue-500'} text-white rounded flex flex-col items-center justify-center`}
             disabled={goalAchieved}
           >
             <button.icon 
-              size={button.action === 'observe' ? 25 : 20} 
+              size={button.action === 'observe' ? 32 : 28} 
               className="mb-1"
             />
-            <span className="text-xs">{button.label}</span>
+            <span className="text-sm">{button.label}</span>
           </button>
         ))}
       </div>
