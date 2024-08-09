@@ -3,21 +3,9 @@ import { Sword, FlaskRound, Pill } from 'lucide-react';
 
 const Inventory = ({ inventory }) => {
   const itemDetails = [
-<<<<<<< HEAD
-<<<<<<< HEAD
-    { name: 'redAmulet', icon: GiGemPendant, color: 'text-red-500' },
-    { name: 'blueAmulet', icon: GiGemPendant, color: 'text-blue-500' },
-    { name: 'yellowAmulet', icon: GiGemPendant, color: 'text-yellow-500' }
-=======
-    { name: 'sword', icon: Sword, color: 'text-gray-700' },
-    { name: 'potion', icon: FlaskRound, color: 'text-blue-500' },
-    { name: 'antidote', icon: Pill, color: 'text-green-500' }
->>>>>>> parent of 31ce785 (Update Inventory.js)
-=======
     { name: 'sword', icon: Sword, color: 'text-gray-700' },
     { name: 'poison', icon: FlaskRound, color: 'text-purple-500' },
     { name: 'antidote', icon: Pill, color: 'text-green-500' }
->>>>>>> parent of f3877ac (Add files via upload)
   ];
 
   return (
