@@ -1,7 +1,9 @@
+// File: src/components/GridGame/ActionButtons.js
+
 import React from 'react';
 import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Eye } from 'lucide-react';
 
-const ActionButtons = ({ handlePlayerAction, disabled }) => {
+const ActionButtons = ({ handlePlayerAction, goalAchieved }) => {
   const buttons = [
     { action: 'up', icon: ArrowUp, label: 'Up' },
     { action: 'left', icon: ArrowLeft, label: 'Left' },
@@ -18,8 +20,8 @@ const ActionButtons = ({ handlePlayerAction, disabled }) => {
           <button 
             key={button.action}
             onClick={() => handlePlayerAction(button.action)} 
-            className={`w-24 h-16 ${disabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'} text-white rounded flex flex-col items-center justify-center transition-colors`}
-            disabled={disabled}
+            className={`w-24 h-16 ${goalAchieved ? 'bg-gray-400' : 'bg-blue-500'} text-white rounded flex flex-col items-center justify-center`}
+            disabled={goalAchieved}
           >
             <button.icon 
               size={button.action === 'observe' ? 32 : 28} 
