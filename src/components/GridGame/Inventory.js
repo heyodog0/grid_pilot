@@ -3,9 +3,15 @@ import { GiGemPendant } from "react-icons/gi";
 
 const Inventory = ({ inventory }) => {
   const itemDetails = [
+<<<<<<< HEAD
     { name: 'redAmulet', icon: GiGemPendant, color: 'text-red-500' },
     { name: 'blueAmulet', icon: GiGemPendant, color: 'text-blue-500' },
     { name: 'yellowAmulet', icon: GiGemPendant, color: 'text-yellow-500' }
+=======
+    { name: 'sword', icon: Sword, color: 'text-gray-700' },
+    { name: 'potion', icon: FlaskRound, color: 'text-blue-500' },
+    { name: 'antidote', icon: Pill, color: 'text-green-500' }
+>>>>>>> parent of 31ce785 (Update Inventory.js)
   ];
 
   return (
