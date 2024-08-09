@@ -1,11 +1,11 @@
 import React from 'react';
-import { Sword, FlaskRound, Pill } from 'lucide-react';
+import { GiGemPendant } from "react-icons/gi";
 
 const Inventory = ({ inventory }) => {
   const itemDetails = [
-    { name: 'sword', icon: Sword, color: 'text-gray-700' },
-    { name: 'poison', icon: FlaskRound, color: 'text-purple-500' },
-    { name: 'antidote', icon: Pill, color: 'text-green-500' }
+    { name: 'redAmulet', icon: GiGemPendant, color: 'text-red-500' },
+    { name: 'blueAmulet', icon: GiGemPendant, color: 'text-blue-500' },
+    { name: 'yellowAmulet', icon: GiGemPendant, color: 'text-yellow-500' }
   ];
 
   return (

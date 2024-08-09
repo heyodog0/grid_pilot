@@ -1,19 +1,23 @@
+
+
 const mapData = {
   level1: {
-    goal: 1,
     player: { x: 6, y: 3 },
     npc: { x: 4, y: 5, movements: ['up', 'up', 'up', 'up', 'down', 'down', 'down', 'down', 'down', 'down', 'left', 'left', 'left', 'left', 'down'], currentMovementIndex: 0 },
-    items: [
-      { type: 'sword', x: 8, y: 2 },
+    barriers: [
+      { x: 4, y: 8, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 7, y: 7, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+      { x: 0, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
     ],
-    doors: [
-      { type: 'dragon', x: 4, y: 9, requiredItems: ['sword'] },
-      { type: 'monster', x: 8, y: 7, requiredItems: ['sword', 'poison'] },
-      { type: 'princess', x: 0, y: 9, requiredItems: ['antidote'] },
+    treasurePots: [
+      { x: 4, y: 9, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
     ],
-    sorcerers: [
-      { x: 2, y: 0, content: 'poison', revealed: false },
-      { x: 4, y: 0, content: 'antidote', revealed: false },
+    wizards: [
+      { x: 2, y: 0, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 4, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 8, y: 2, content: 'redAmulet', color: 'text-red-500'}
     ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0},
@@ -26,15 +30,30 @@ const mapData = {
       {x:1,y:9}, {x:2,y:9}, {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}, {x:8,y:9}
     ],
     inventory: [],
-    openedDoors: []
+    openedBarriers: [],
+    goal: {
+      type: 'C',
+      description: 'Find and obtain Treasure A'
+    }
   },
   level2: {
-    goal: 2,
-    player: {'x': 4, 'y': 5},
+    player: { x: 6, y: 3 },
     npc: { x: 4, y: 2, movements: ["down", "right", "right", "right", "left", "left", "left", "down", "down", "down", "down", "right", "right", "right"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 3}],
-    doors: [{'type': 'dragon', 'x': 8, 'y': 7, 'requiredItems': ['sword']}, {'type': 'monster', 'x': 0, 'y': 9, 'requiredItems': ['sword', 'poison']}, {'type': 'princess', 'x': 4, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'poison', 'revealed': false}],
+    barriers: [
+      { x: 4, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+      { x: 7, y: 7, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 0, y: 8, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+    ],
+    treasurePots: [
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+      { x: 4, y: 9, type: 'B', color: 'text-yellow-500', label: 'B' },
+    ],
+    wizards: [
+      { x: 0, y: 0, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 8, y: 5, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 8, y: 3, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:4,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
       {x:8,y:0}, {x:0,y:2}, {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2},,
@@ -46,15 +65,31 @@ const mapData = {
       {x:8,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'B',
+      description: 'Find and obtain Treasure B'
+    }
   },
   level3: {
-    goal: 1,
-    player: {'x': 6, 'y': 3},
+    player: { x: 6, y: 3 },
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 2}],
-    doors: [{'type': 'monster', 'x': 8, 'y': 7, 'requiredItems': ['sword', 'poison']}, {'type': 'princess', 'x': 0, 'y': 9, 'requiredItems': ['antidote']}, {'type': 'dragon', 'x': 4, 'y': 9, 'requiredItems': ['sword']}],
-    sorcerers: [{'x': 2, 'y': 0, 'content': 'poison', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'nothing', 'revealed': false}],
+    barriers: [
+      { x: 4, y: 8, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 7, y: 7, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+      { x: 0, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+    ],
+    treasurePots: [
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+      { x: 4, y: 9, type: 'B', color: 'text-yellow-500', label: 'B' },
+    ],
+    wizards: [
+      { x: 2, y: 0, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 4, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 6, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 8, y: 2, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:0,y:1},,
       {x:1,y:1}, {x:3,y:1}, {x:5,y:1}, {x:7,y:1}, {x:8,y:1}, {x:0,y:3}, {x:1,y:3},,
@@ -66,15 +101,31 @@ const mapData = {
       {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}, {x:8,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'C',
+      description: 'Find and obtain Treasure C'
+    }
   },
   level4: {
-    goal: 2,
-    player: {'x': 4, 'y': 5},
+    player: { x: 4, y: 5 },
     npc: { x: 4, y: 2, movements: ["down", "right", "right", "right", "left", "left", "left", "down", "down", "down", "down", "right", "right", "right"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 3}],
-    doors: [{'type': 'dragon', 'x': 8, 'y': 7, 'requiredItems': ['sword']}, {'type': 'monster', 'x': 0, 'y': 9, 'requiredItems': ['sword', 'poison']}, {'type': 'princess', 'x': 4, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'empty', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'poison', 'revealed': false}],
+    barriers: [
+      { x: 4, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+      { x: 7, y: 7, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 0, y: 8, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+    ],
+    treasurePots: [
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+      { x: 4, y: 9, type: 'B', color: 'text-yellow-500', label: 'B' },
+    ],
+    wizards: [
+      { x: 0, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 0, y: 5, content: 'nothing', color: 'text-gray-500' },
+      { x: 6, y: 0, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 8, y: 3, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:4,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
       {x:8,y:0}, {x:0,y:2}, {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2},,
@@ -86,15 +137,31 @@ const mapData = {
       {x:8,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'B',
+      description: 'Find and obtain Treasure B'
+    }
   },
   level5: {
-    goal: 1,
-    player: {'x': 2, 'y': 2},
+    player: { x: 2, y: 2 },
     npc: { x: 4, y: 7, movements: ["left", "left", "up", "up", "up", "up", "down", "right", "right", "right", "right", "down", "down", "down", "down", "down", "right"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 5}],
-    doors: [{'type': 'monster', 'x': 8, 'y': 2, 'requiredItems': ['sword', 'poison']}, {'type': 'dragon', 'x': 0, 'y': 5, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 7, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 2, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'poison', 'revealed': false}],
+    barriers: [
+      { x: 1, y: 5, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 7, y: 7, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+      { x: 7, y: 2, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+    ],
+    treasurePots: [
+      { x: 8, y: 2, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 0, y: 5, type: 'A', color: 'text-yellow-500', label: 'A' },
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+    ],
+    wizards: [
+      { x: 2, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 4, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 0, y: 2, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 8, y: 5, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1}, {x:8,y:1},,
@@ -104,15 +171,31 @@ const mapData = {
       {x:8,y:6}, {x:0,y:7}, {x:1,y:7}, {x:2,y:7}, {x:3,y:7}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'B',
+      description: 'Find and obtain Treasure B'
+    }
   },
   level6: {
-    goal: 1,
-    player: {'x': 4, 'y': 7},
+    player: { x: 4, y: 7 },
     npc: { x: 2, y: 2, movements: ["right", "right", "right", "right", "down", "down", "down", "right", "left", "up", "up", "up", "right"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 5}],
-    doors: [{'type': 'monster', 'x': 8, 'y': 2, 'requiredItems': ['sword', 'poison']}, {'type': 'dragon', 'x': 0, 'y': 5, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 7, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 2, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'poison', 'revealed': false}],
+    barriers: [
+      { x: 1, y: 5, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 7, y: 7, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+      { x: 7, y: 2, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+    ],
+    treasurePots: [
+      { x: 8, y: 2, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 0, y: 5, type: 'A', color: 'text-yellow-500', label: 'A' },
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+    ],
+    wizards: [
+      { x: 2, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 4, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 0, y: 2, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 8, y: 5, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1}, {x:8,y:1},,
@@ -122,15 +205,31 @@ const mapData = {
       {x:8,y:6}, {x:0,y:7}, {x:1,y:7}, {x:2,y:7}, {x:3,y:7}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'B',
+      description: 'Find and obtain Treasure B'
+    }
   },
   level7: {
-    goal: 0,
-    player: {'x': 4, 'y': 7},
+    player: { x: 4, y: 7 },
     npc: { x: 2, y: 2, movements: ["right", "right", "right", "right", "down", "down", "down", "right", "left", "up", "up", "up", "right"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 5}],
-    doors: [{'type': 'monster', 'x': 8, 'y': 2, 'requiredItems': ['sword', 'poison']}, {'type': 'dragon', 'x': 0, 'y': 5, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 7, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 2, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'poison', 'revealed': false}],
+    barriers: [
+      { x: 1, y: 5, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 7, y: 7, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+      { x: 7, y: 2, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+    ],
+    treasurePots: [
+      { x: 8, y: 2, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 0, y: 5, type: 'A', color: 'text-yellow-500', label: 'A' },
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+    ],
+    wizards: [
+      { x: 2, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 4, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 0, y: 2, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 8, y: 5, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:8,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1}, {x:8,y:1},,
@@ -140,15 +239,31 @@ const mapData = {
       {x:8,y:6}, {x:0,y:7}, {x:1,y:7}, {x:2,y:7}, {x:3,y:7}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'A',
+      description: 'Find and obtain Treasure A'
+    }
   },
   level8: {
-    goal: 2,
     player: {'x': 6, 'y': 2},
     npc: { x: 5, y: 7, movements: ["left", "up", "up", "left", "left", "up", "up", "up", "right", "right", "up", "down", "right", "right", "down", "down", "down", "down", "down", "right", "right", "down"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 0, 'y': 5}],
-    doors: [{'type': 'monster', 'x': 8, 'y': 0, 'requiredItems': ['sword', 'poison']}, {'type': 'dragon', 'x': 0, 'y': 9, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'nothing', 'revealed': false}, {'x': 4, 'y': 9, 'content': 'poison', 'revealed': false}],
+    barriers: [
+      { x: 0, y: 8, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 8, y: 1, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+      { x: 8, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+    ],
+    treasurePots: [
+      { x: 8, y: 0, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+      { x: 8, y: 9, type: 'C', color: 'text-yellow-500', label: 'C' },
+    ],
+    wizards: [
+      { x: 4, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 0, y: 2, content: 'nothing', color: 'text-gray-500' },
+      { x: 4, y: 9, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 0, y: 5, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:2,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1},,
@@ -159,15 +274,31 @@ const mapData = {
       {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'C',
+      description: 'Find and obtain Treasure C'
+    }
   },
   level9: {
-    goal: 2,
     player: {'x': 5, 'y': 7},
     npc: { x: 6, y: 2, movements: ["left", "left", "up", "down", "right", "right", "down", "down", "down", "down", "down", "right", "right", "down"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 0, 'y': 5}],
-    doors: [{'type': 'monster', 'x': 8, 'y': 0, 'requiredItems': ['sword', 'poison']}, {'type': 'dragon', 'x': 0, 'y': 9, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'nothing', 'revealed': false}, {'x': 4, 'y': 9, 'content': 'poison', 'revealed': false}],
+    barriers: [
+      { x: 0, y: 8, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 8, y: 1, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+      { x: 8, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+    ],
+    treasurePots: [
+      { x: 8, y: 0, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+      { x: 8, y: 9, type: 'C', color: 'text-yellow-500', label: 'C' },
+    ],
+    wizards: [
+      { x: 4, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 0, y: 2, content: 'nothing', color: 'text-gray-500' },
+      { x: 4, y: 9, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 0, y: 5, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:2,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1},,
@@ -178,15 +309,31 @@ const mapData = {
       {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'C',
+      description: 'Find and obtain Treasure C'
+    }
   },
   level10: {
-    goal: 0,
     player: {'x': 5, 'y': 7},
     npc: { x: 6, y: 2, movements: ["left", "left", "up", "down", "right", "right", "down", "down", "down", "down", "down", "right", "right", "down"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 0, 'y': 5}],
-    doors: [{'type': 'monster', 'x': 8, 'y': 0, 'requiredItems': ['sword', 'poison']}, {'type': 'dragon', 'x': 0, 'y': 9, 'requiredItems': ['sword']}, {'type': 'princess', 'x': 8, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'nothing', 'revealed': false}, {'x': 4, 'y': 9, 'content': 'poison', 'revealed': false}],
+    barriers: [
+      { x: 0, y: 8, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 8, y: 1, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+      { x: 8, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+    ],
+    treasurePots: [
+      { x: 8, y: 0, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+      { x: 8, y: 9, type: 'C', color: 'text-yellow-500', label: 'C' },
+    ],
+    wizards: [
+      { x: 4, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 0, y: 2, content: 'nothing', color: 'text-gray-500' },
+      { x: 4, y: 9, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 0, y: 5, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
       {x:0,y:1}, {x:1,y:1}, {x:2,y:1}, {x:3,y:1}, {x:5,y:1}, {x:6,y:1}, {x:7,y:1},,
@@ -197,15 +344,32 @@ const mapData = {
       {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'A',
+      description: 'Find and obtain Treasure A'
+    }
   },
   level11: {
-    goal: 1,
     player: {'x': 6, 'y': 3},
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 2}],
-    doors: [{'type': 'monster', 'x': 8, 'y': 7, 'requiredItems': ['sword', 'poison']}, {'type': 'princess', 'x': 0, 'y': 9, 'requiredItems': ['antidote']}, {'type': 'dragon', 'x': 4, 'y': 9, 'requiredItems': ['sword']}],
-    sorcerers: [{'x': 2, 'y': 0, 'content': 'poison', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 2, 'content': 'nothing', 'revealed': false}],
+    barriers: [
+      { x: 4, y: 8, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 7, y: 7, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+      { x: 0, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+    ],
+    treasurePots: [
+      { x: 4, y: 9, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+    ],
+    wizards: [
+      { x: 2, y: 0, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 4, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 6, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 0, y: 2, content: 'nothing', color: 'text-gray-500' },
+      { x: 8, y: 2, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:0,y:0}, {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:0,y:1},,
       {x:1,y:1}, {x:3,y:1}, {x:5,y:1}, {x:7,y:1}, {x:8,y:1}, {x:0,y:3}, {x:1,y:3},,
@@ -217,34 +381,69 @@ const mapData = {
       {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}, {x:8,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'C',
+      description: 'Find and obtain Treasure C'
+    }
   },
-  level12: {
-    goal: 2,
-    player: {'x': 4, 'y': 5},
-    npc: { x: 4, y: 2, movements: ["down", "right", "right", "right", "left", "left", "left", "down", "down", "down", "down", "right", "right", "right"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 3}],
-    doors: [{'type': 'dragon', 'x': 8, 'y': 7, 'requiredItems': ['sword']}, {'type': 'monster', 'x': 0, 'y': 9, 'requiredItems': ['sword', 'poison']}, {'type': 'princess', 'x': 4, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 8, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'poison', 'revealed': false}],
-    blocks: [
-      {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:4,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
-      {x:0,y:2}, {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2}, {x:7,y:2},,
-      {x:8,y:2}, {x:0,y:3}, {x:1,y:3}, {x:2,y:3}, {x:3,y:3}, {x:0,y:4}, {x:1,y:4},,
-      {x:2,y:4}, {x:3,y:4}, {x:5,y:4}, {x:6,y:4}, {x:7,y:4}, {x:8,y:4}, {x:0,y:6},,
-      {x:1,y:6}, {x:2,y:6}, {x:3,y:6}, {x:5,y:6}, {x:6,y:6}, {x:7,y:6}, {x:8,y:6},,
-      {x:1,y:8}, {x:2,y:8}, {x:3,y:8}, {x:5,y:8}, {x:6,y:8}, {x:7,y:8}, {x:8,y:8},,
-      {x:1,y:9}, {x:2,y:9}, {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}, {x:8,y:9}
-    ],
-    inventory: [],
-    openedDoors: [],
-  },
+    level12: {
+      player: {'x': 4, 'y': 5},
+      npc: { x: 4, y: 2, movements: ["down", "right", "right", "right", "left", "left", "left", "down", "down", "down", "down", "right", "right", "right"], currentMovementIndex: 0 },
+      barriers: [
+        { x: 7, y: 7, requiredItems: ['redAmulet'], color: 'text-red-500' },
+        { x: 0, y: 8, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+        { x: 4, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+      ],
+      treasurePots: [
+        { x: 4, y: 9, type: 'B', color: 'text-yellow-500', label: 'B' },
+        { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+        { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+      ],
+      wizards: [
+        { x: 0, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+        { x: 8, y: 0, content: 'nothing', color: 'text-gray-500' },
+        { x: 0, y: 5, content: 'nothing', color: 'text-gray-500' },
+        { x: 8, y: 5, content: 'blueAmulet', color: 'text-gray-500' },
+        { x: 8, y: 3, content: 'redAmulet', color: 'text-red-500'}
+      ],
+      blocks: [
+        {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:4,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0},,
+        {x:0,y:2}, {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2}, {x:7,y:2},,
+        {x:8,y:2}, {x:0,y:3}, {x:1,y:3}, {x:2,y:3}, {x:3,y:3}, {x:0,y:4}, {x:1,y:4},,
+        {x:2,y:4}, {x:3,y:4}, {x:5,y:4}, {x:6,y:4}, {x:7,y:4}, {x:8,y:4}, {x:0,y:6},,
+        {x:1,y:6}, {x:2,y:6}, {x:3,y:6}, {x:5,y:6}, {x:6,y:6}, {x:7,y:6}, {x:8,y:6},,
+        {x:1,y:8}, {x:2,y:8}, {x:3,y:8}, {x:5,y:8}, {x:6,y:8}, {x:7,y:8}, {x:8,y:8},,
+        {x:1,y:9}, {x:2,y:9}, {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}, {x:8,y:9}
+      ],
+      inventory: [],
+      openedBarriers: [],
+      goal: {
+        type: 'B',
+        description: 'Find and obtain Treasure B'
+      }
+    },
   level13: {
-    goal: 1,
     player: {'x': 6, 'y': 3},
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 2}],
-    doors: [{'type': 'monster', 'x': 8, 'y': 7, 'requiredItems': ['sword', 'poison']}, {'type': 'princess', 'x': 0, 'y': 9, 'requiredItems': ['antidote']}, {'type': 'dragon', 'x': 4, 'y': 9, 'requiredItems': ['sword']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 2, 'y': 0, 'content': 'poison', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 4, 'content': 'nothing', 'revealed': false}],
+    barriers: [
+      { x: 4, y: 8, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 7, y: 7, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+      { x: 0, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+    ],
+    treasurePots: [
+      { x: 4, y: 9, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+    ],
+    wizards: [
+      { x: 0, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 2, y: 0, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 4, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 6, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 0, y: 4, content: 'nothing', color: 'text-gray-500' },
+      { x: 8, y: 2, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:1,y:1}, {x:3,y:1},,
       {x:5,y:1}, {x:7,y:1}, {x:8,y:1}, {x:1,y:3}, {x:2,y:3}, {x:3,y:3}, {x:5,y:3},,
@@ -256,15 +455,33 @@ const mapData = {
       {x:8,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'C',
+      description: 'Find and obtain Treasure C'
+    }
   },
   level14: {
-    goal: 2,
     player: {'x': 4, 'y': 5},
     npc: { x: 4, y: 2, movements: ["down", "right", "right", "right", "left", "left", "left", "down", "down", "down", "down", "right", "right", "right"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 3}],
-    doors: [{'type': 'dragon', 'x': 8, 'y': 7, 'requiredItems': ['sword']}, {'type': 'monster', 'x': 0, 'y': 9, 'requiredItems': ['sword', 'poison']}, {'type': 'princess', 'x': 4, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'poison', 'revealed': false}],
+    barriers: [
+      { x: 7, y: 7, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 0, y: 8, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+      { x: 4, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+    ],
+    treasurePots: [
+      { x: 4, y: 9, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+    ],
+    wizards: [
+      { x: 0, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 4, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 8, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 0, y: 5, content: 'nothing', color: 'text-gray-500' },
+      { x: 8, y: 5, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 8, y: 3, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:0,y:2},,
       {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2}, {x:7,y:2}, {x:8,y:2},,
@@ -275,15 +492,34 @@ const mapData = {
       {x:2,y:9}, {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}, {x:8,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'B',
+      description: 'Find and obtain Treasure B'
+    }
   },
   level15: {
-    goal: 1,
     player: {'x': 6, 'y': 3},
     npc: { x: 4, y: 5, movements: ["up", "up", "up", "up", "down", "down", "down", "down", "down", "down", "left", "left", "left", "left", "down"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 2}],
-    doors: [{'type': 'monster', 'x': 8, 'y': 7, 'requiredItems': ['sword', 'poison']}, {'type': 'princess', 'x': 0, 'y': 9, 'requiredItems': ['antidote']}, {'type': 'dragon', 'x': 4, 'y': 9, 'requiredItems': ['sword']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 2, 'y': 0, 'content': 'poison', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 6, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 4, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'nothing', 'revealed': false}],
+    barriers: [
+      { x: 4, y: 8, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 7, y: 7, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+      { x: 0, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+    ],
+    treasurePots: [
+      { x: 4, y: 9, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+    ],
+    wizards: [
+      { x: 0, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 2, y: 0, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 4, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 6, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 0, y: 4, content: 'nothing', color: 'text-gray-500' },
+      { x: 8, y: 5, content: 'nothing', color: 'text-gray-500' },
+      { x: 8, y: 2, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:7,y:0}, {x:8,y:0}, {x:1,y:1}, {x:3,y:1},,
       {x:5,y:1}, {x:7,y:1}, {x:8,y:1}, {x:1,y:3}, {x:2,y:3}, {x:3,y:3}, {x:5,y:3},,
@@ -294,15 +530,34 @@ const mapData = {
       {x:2,y:9}, {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:7,y:9}, {x:8,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'C',
+      description: 'Find and obtain Treasure C'
+    }
   },
   level16: {
-    goal: 2,
     player: {'x': 4, 'y': 5},
     npc: { x: 4, y: 2, movements: ["down", "right", "right", "right", "left", "left", "left", "down", "down", "down", "down", "right", "right", "right"], currentMovementIndex: 0 },
-    items: [{'type': 'sword', 'x': 8, 'y': 3}],
-    doors: [{'type': 'dragon', 'x': 8, 'y': 7, 'requiredItems': ['sword']}, {'type': 'monster', 'x': 0, 'y': 9, 'requiredItems': ['sword', 'poison']}, {'type': 'princess', 'x': 4, 'y': 9, 'requiredItems': ['antidote']}],
-    sorcerers: [{'x': 0, 'y': 0, 'content': 'antidote', 'revealed': false}, {'x': 4, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 0, 'content': 'nothing', 'revealed': false}, {'x': 0, 'y': 5, 'content': 'nothing', 'revealed': false}, {'x': 8, 'y': 5, 'content': 'poison', 'revealed': false}, {'x': 7, 'y': 9, 'content': 'nothing', 'revealed': false}],
+    barriers: [
+      { x: 7, y: 7, requiredItems: ['redAmulet'], color: 'text-red-500' },
+      { x: 0, y: 8, requiredItems: ['redAmulet', 'blueAmulet'], color: 'text-red-500 text-blue-500' },
+      { x: 4, y: 8, requiredItems: ['yellowAmulet'], color: 'text-yellow-500' },
+    ],
+    treasurePots: [
+      { x: 4, y: 9, type: 'B', color: 'text-yellow-500', label: 'B' },
+      { x: 8, y: 7, type: 'C', color: 'text-yellow-500', label: 'C' },
+      { x: 0, y: 9, type: 'A', color: 'text-yellow-500', label: 'A' },
+    ],
+    wizards: [
+      { x: 0, y: 0, content: 'yellowAmulet', color: 'text-gray-500' },
+      { x: 4, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 8, y: 0, content: 'nothing', color: 'text-gray-500' },
+      { x: 0, y: 5, content: 'nothing', color: 'text-gray-500' },
+      { x: 8, y: 5, content: 'blueAmulet', color: 'text-gray-500' },
+      { x: 7, y: 9, content: 'nothing', color: 'text-gray-500' },
+      { x: 8, y: 3, content: 'redAmulet', color: 'text-red-500'}
+    ],
     blocks: [
       {x:1,y:0}, {x:2,y:0}, {x:3,y:0}, {x:5,y:0}, {x:6,y:0}, {x:7,y:0}, {x:0,y:2},,
       {x:1,y:2}, {x:2,y:2}, {x:3,y:2}, {x:5,y:2}, {x:6,y:2}, {x:7,y:2}, {x:8,y:2},,
@@ -313,7 +568,12 @@ const mapData = {
       {x:3,y:9}, {x:5,y:9}, {x:6,y:9}, {x:8,y:9}
     ],
     inventory: [],
-    openedDoors: [],
+    openedBarriers: [],
+    goal: {
+      type: 'B',
+      description: 'Find and obtain Treasure B'
+    }
   },
-};
+}
+
 export default mapData;
